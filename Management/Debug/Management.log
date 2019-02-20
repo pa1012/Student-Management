@@ -1,1 +1,7 @@
-﻿  Management.vcxproj -> D:\class\1stterm2\cs162\project\Management\Debug\Management.exe
+﻿  ArrayOfAccount.cpp
+d:\class\1stterm2\cs162\project\management\management\arrayofaccount.cpp(39): warning C4018: '<': signed/unsigned mismatch
+d:\class\1stterm2\cs162\project\management\management\arrayofaccount.cpp(56): warning C4018: '<': signed/unsigned mismatch
+  Class.cpp
+  main.cpp
+  Generating Code...
+  Management.vcxproj -> D:\class\1stterm2\cs162\project\Management\Debug\Management.exe

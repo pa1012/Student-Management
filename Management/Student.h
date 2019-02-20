@@ -1,6 +1,7 @@
 #include<iostream>
 #include<fstream>
-#include"Date.h"
+#include<sstream>
+#include"ArrayOfAccount.h"
 
 using namespace std;
 
@@ -10,9 +11,7 @@ private:
 	char* lastName;
 	char* firstName;
 	int gender;
-	Date birthday;
+	char* date;
 public:
-	void inputAStudent();
-	void outputAStudent();
-	void createAcount();
+	void inputAStudent(int id, char last[], char first[], int gen, char d[]);
 };

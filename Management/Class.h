@@ -1,12 +1,17 @@
 #include "Student.h"
+#include<vector>
+#include"Convert.h"
+
 
 using namespace std;
 
 class Class {
 private:
 	int numberOfStudent;
-	Student* a[];
+	vector <Student> students;
+	char* name;
 public:
-	void inputAClass();
+	void inputAClass(int n, char c[], ArrOfAccount &Acc);
 	void outputAClass();
+	void inputStudents(ArrOfAccount &Acc);
 };
