@@ -6,13 +6,16 @@ using namespace std;
 
 class Account {
 private:
-	char* username;
-	char* password;
+	string username;
+	string password;
 	int role;
 public:
-	
-	void createAccount(char name[], char pass[], int r);
-	void createAcountLecturer();
-	bool checkUsername(char id[]);
+	void createAccount(const string name, string pass, int r);
+	bool checkUsername(string id);
 	void output();
+	bool isMatchName(string c);
+	bool isMatchPass(string c);
+	void tryOutput();
+	void clear();
+	int getRole();
 };

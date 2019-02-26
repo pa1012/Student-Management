@@ -3,5 +3,6 @@
 
 using namespace std;
 
-void convertStringToInt(char c[], int & a);
-void convertDateToPass(char date[], char pass[]);
+void convertStringToInt(string c, int & a);
+void convertDateToPass(string date, string &pass);
+

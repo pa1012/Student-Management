@@ -1,18 +1,17 @@
 #include"Student.h"
 
 
-void Student::inputAStudent(int id, char last[], char first[], int gen, char d[]) {
+void Student::inputAStudent(int id, string last, string first, int gen, string d) {
 	ID = id;
 
-	lastName = new char[strlen(last) + 1];
-	strcpy(lastName, last);
-
-	firstName = new char[strlen(first) + 1];
-	strcpy(firstName, first);
+	lastName = last;
+	firstName = first;
 
 	gender = gen;
 
-	date = new char[strlen(d) + 1];
-	strcpy(date, d);
+	date = d;
 }
 
+void Student::clear() {
+	
+}

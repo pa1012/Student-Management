@@ -8,10 +8,11 @@ using namespace std;
 class Student {
 private:
 	long long ID;
-	char* lastName;
-	char* firstName;
+	string lastName;
+	string firstName;
 	int gender;
-	char* date;
+	string date;
 public:
-	void inputAStudent(int id, char last[], char first[], int gen, char d[]);
+	void inputAStudent(int id, string last, string first, int gen, string d);
+	void clear();
 };

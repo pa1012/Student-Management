@@ -9,9 +9,10 @@ class Class {
 private:
 	int numberOfStudent;
 	vector <Student> students;
-	char* name;
+	string name;
 public:
-	void inputAClass(int n, char c[], ArrOfAccount &Acc);
+	void inputAClass(int n, string c, ArrOfAccount &Acc);
 	void outputAClass();
 	void inputStudents(ArrOfAccount &Acc);
+	void clear();
 };

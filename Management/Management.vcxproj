@@ -132,18 +132,23 @@
     <ClCompile Include="Convert.cpp" />
     <ClCompile Include="Course.cpp" />
     <ClCompile Include="LoadData.cpp" />
+    <ClCompile Include="Login.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Student.cpp" />
+    <ClCompile Include="Update.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Account.h" />
     <ClInclude Include="ArrayOfAccount.h" />
     <ClInclude Include="ArrayOfClass.h" />
+    <ClInclude Include="Base.h" />
     <ClInclude Include="Class.h" />
     <ClInclude Include="Convert.h" />
     <ClInclude Include="Course.h" />
     <ClInclude Include="LoadData.h" />
+    <ClInclude Include="Login.h" />
     <ClInclude Include="Student.h" />
+    <ClInclude Include="Update.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

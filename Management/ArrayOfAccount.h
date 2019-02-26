@@ -8,11 +8,15 @@ private:
 	int n;
 	vector <Account> A;
 public:
-	void loadAccountStudent();
+	void loadAccount();
 	void loadAccountLecturer();
 	void loadAccountAdmin();
-	bool isValid(char id[]);
-	void input(char name[], char pass[], int role);
+	bool isValid(string id);
+	void input(string name, string pass, int role);
 	void saveAccount();
+	int findUsername(string c);
+	bool checkPassword(string c, int k);
+	Account getAccount(int k);
 	ArrOfAccount();
+	void clear();
 };

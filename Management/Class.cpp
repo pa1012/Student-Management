@@ -1,9 +1,8 @@
 #include"Class.h"
 
-void Class::inputAClass(int n, char c[], ArrOfAccount &Acc) {
+void Class::inputAClass(int n, string c, ArrOfAccount &Acc) {
 	numberOfStudent = n;
-	name = new char[strlen(c) + 1];
-	strcpy(name, c);
+	name = c;
 	inputStudents(Acc);
 }
 
@@ -15,27 +14,27 @@ void Class::inputStudents(ArrOfAccount &Acc) {
 	ifstream fin;
 	
 	fin.open(fileName.c_str());
-	char no[100], id[100], lastName[100], firstName[100], gender[100], date[100];
-	bool firstTime = true;
+	string no, id, lastName, firstName, gender, date;
+	
 	while (!fin.eof())
 	{
-		if (!firstTime) fin.ignore();
-		firstTime = false;
-		fin.get(no,100,',');
-		fin.ignore();
-		fin.get(id,100, ',');
-		fin.ignore();
-		fin.get(lastName,100, ',');
-		fin.ignore();
-		fin.get(firstName,100, ',');
-		fin.ignore();
-		fin.get(gender,100, ',');
-		fin.ignore();
-		fin.get(date,100, '\n');
+		
+		
+		getline(fin, no, ',');
+		
+		getline(fin, id, ',');
+		
+		getline(fin, lastName, ',');
+	;
+		getline(fin, firstName, ',');
+	
+		getline(fin, gender, ',');
+		
+		getline(fin, date, '\n');
 
 		int number;
 		int sId;
-		char pass[100];
+		string pass;
 		convertStringToInt(no, number);
 		convertStringToInt(id, sId);
 		convertDateToPass(date, pass);
@@ -46,8 +45,13 @@ void Class::inputStudents(ArrOfAccount &Acc) {
 			else
 				S.inputAStudent(sId, lastName, firstName, 1, date);
 			if (!Acc.isValid(id)) Acc.input(id, pass, 1);
+			S.clear();
 		}
 
 	}
 	fin.close();
+}
+
+void Class::clear() {
+	
 }

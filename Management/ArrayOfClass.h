@@ -11,4 +11,5 @@ private:
 	vector <Class> Arr;
 public:
 	void load(ArrOfAccount &Acc);
+	void clear();
 };

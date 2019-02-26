@@ -1,22 +1,22 @@
 #include"Convert.h"
 
-void convertStringToInt(char c[], int & a) {
+void convertStringToInt(string c, int & a) {
 	a = 0;
 	if (c[0] > '9' || c[0] < '0') {
 		a = -1;
 		return;
 	}
 
-	for (int i = 0; i < strlen(c); i++)
+	for (int i = 0; i < c.length(); i++)
 		a = a * 10 + (c[i] - '0');
 
 }
 
-void convertDateToPass(char date[], char pass[]) {
+void convertDateToPass(string date, string &pass) {
 	string tmp = "";
 	string res = "";
 	int n = 0;
-	for (int i = 0; i < strlen(date); i++) {
+	for (int i = 0; i < date.length(); i++) {
 		if (date[i] != '/') {
 			tmp = tmp + date[i];
 		}
@@ -29,7 +29,7 @@ void convertDateToPass(char date[], char pass[]) {
 		}
 	}
 	res = res + tmp;
-	for (int i = 0; i < res.length(); i++)
-		pass[i] = res[i];
-	pass[res.length()] = '\0';
+	pass = res;
+
 }
+

@@ -1,17 +1,15 @@
 #include"Account.h"
 
-void Account::createAccount(char name[], char pass[], int r) {
-	username = new char[strlen(name) + 1];
-	strcpy(username, name);
+void Account::createAccount(const string name, string pass, int r) {
+	username = name;
 
-	password = new char[strlen(pass) + 1];
-	strcpy(password, pass);
+	password = pass;
 
 	role = r;
 }
 
-bool Account::checkUsername(char id[]) {
-	if (strcmp(id, username) == 0) return true;
+bool Account::checkUsername(string id) {
+	if (id == username) return true;
 	return false;
 }
 
@@ -20,4 +18,25 @@ void Account::output() {
 	fout.open("Data/Account.csv",ios::app);
 	fout << username << ',' << password << ',' << role << '\n';
 	fout.close();
+}
+
+bool Account::isMatchName(string c) {
+	return (c == username);
+}
+
+bool Account::isMatchPass(string c) {
+	return (c== password);
+}
+
+void Account::tryOutput() {
+	cout << username << endl;
+	cout << password << endl;
+	cout << role << endl;
+}
+
+void Account::clear() {
+}
+
+int Account::getRole() {
+	return role;
 }

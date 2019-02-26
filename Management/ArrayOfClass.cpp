@@ -6,13 +6,18 @@ void ArrayOfClass::load(ArrOfAccount &Acc) {
 	fin >> numberOfClass;
 	for (int i = 0; i < numberOfClass; i++) {
 		int numberOfStudent;
-		char c[100];
+		string c;
 		fin >> numberOfStudent;
 		fin.ignore();
-		fin.get(c, 100, '\n');
+		fin >> c;
 		Class C;
 		C.inputAClass(numberOfStudent, c, Acc);
 		Arr.push_back(C);
+		C.clear();
 	}
 	fin.close();
+}
+
+void ArrayOfClass::clear() {
+	
 }
