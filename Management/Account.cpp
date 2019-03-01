@@ -3,7 +3,7 @@
 void Account::createAccount(const string name, string pass, int r) {
 	username = name;
 
-	password = pass;
+	password = pass;//ng
 
 	role = r;
 }
