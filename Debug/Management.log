@@ -1,0 +1,5 @@
+﻿  Account.cpp
+c:\users\asus\desktop\project\management\management\account.cpp(16): warning C4018: '<': signed/unsigned mismatch
+c:\users\asus\desktop\project\management\management\account.cpp(87): warning C4018: '<': signed/unsigned mismatch
+c:\users\asus\desktop\project\management\management\account.cpp(93): warning C4018: '<': signed/unsigned mismatch
+  Management.vcxproj -> C:\Users\asus\Desktop\project\Management\Debug\Management.exe
