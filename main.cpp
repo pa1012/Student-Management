@@ -7,6 +7,7 @@
 #include"MenuStudent.h"
 #include"MenuOfLecture.h"
 #include"MenuOfAdmin.h"
+#include"RenderTable.h"
 
 enum AppState {
 	LOGIN, STUDENT, LECTURER, ADMIN
@@ -50,6 +51,10 @@ int main()
 
 	MenuOfLecturer menuLecturer;
 
+	vector<AccountGraphic> accountGraphic;
+	vector<CourseGraphic> courseGraphic;
+	vector<StudentGraphic> studentGraphic;
+
 	Account account;
 
 	loadTexture("rect.png", rectTexture);
@@ -90,8 +95,6 @@ int main()
 
 			if (state == LOGIN) {
 				st = login.handleEvent(event, Acc,account, course);
-				
-				//cout << st << endl;
 			}
 			else 
 			if (state == STUDENT || state == LECTURER || state == ADMIN) {
@@ -99,8 +102,7 @@ int main()
 				{
 					if (!rect.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y))
 					{
-						now = screenControl.handleEvent(event, now, Acc);
-						//cout << now << endl;
+						now = screenControl.handleEvent(event, now, Acc,nowAdmin);
 					}
 				}
 				if ( event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
@@ -137,12 +139,13 @@ int main()
 					nowLecturer = menuLecturer.handleEvent(event);
 				}
 				if (state == ADMIN) {
-					if (event.type == sf::Event::MouseButtonPressed || event.type == sf::Event::TextEntered)
+					if (scroll == false && (event.type == sf::Event::MouseButtonPressed || event.type == sf::Event::TextEntered))
 					{
-						nowAdmin = menuAdmin.handleEvent(event,Acc);
+						nowAdmin = menuAdmin.handleEvent(event,nowAdmin,Acc,accountGraphic, course,courseGraphic,studentGraphic);
 					}
 				}
 			}
+			//cout << event.mouseButton.x << " " << event.mouseButton.y << endl;
 		}
 
 		//LOGIC
@@ -190,11 +193,11 @@ int main()
 			}
 			if (nowView == "up")
 			{
-				veclocity = -0.2;
+				veclocity = -5.0;
 
 			}
 			if (nowView == "down") {
-				veclocity = 0.2;
+				veclocity = 5.0;
 
 			}
 			if (nowView == "stop") {
@@ -202,7 +205,7 @@ int main()
 			}
 			rect.move(0, veclocity);
 			if (rect.getPosition().y < 0) rect.setPosition(1772, 0);
-			screenY = -(SCREEN_HEIGHT / 2 ) + rect.getPosition().y + 53;
+			screenY = -(SCREEN_HEIGHT / 3 ) + rect.getPosition().y + 53;
 			if (screenX < 0) screenX = 0;
 			if (screenY < 0) screenY = 0;
 
@@ -218,7 +221,7 @@ int main()
 			else 
 			if (state == ADMIN) {
 				cout << nowAdmin << endl;
-				menuAdmin.logic(nowAdmin, Class, Acc, course);
+				menuAdmin.logic(nowAdmin, Class, Acc, course,accountGraphic);
 			}
 		}
 		
@@ -248,7 +251,8 @@ int main()
 			window.setView(view);
 			screenControl.render(window,now);
 			window.draw(rect);
-			menuAdmin.render(window,nowAdmin,Acc,Class);
+			
+			menuAdmin.render(window,nowAdmin,Acc,Class,accountGraphic,courseGraphic,studentGraphic);
 			break;
 		}
 

@@ -1,5 +1,5 @@
-No,CourseID,CourseName,Lecture name,LecturerID,AcademicYears,Semesters,StartDate, End Date,Day of Week ,Start Hour:Minute,End Hour:Minute,Room
-1,CS162,Introduction to Computer Science II,Dinh Ba Tien,21812562,2018-2019,2,7/1/2019,13/04/2019,Tue,8:00,11:00,I11
-2,MTH252,Calculus II,Nguyen Huu Anh,21812552,2018-2019,2,7/1/2019,13/04/2019,Fri,8:00,11:00,I42
-3,PH212,General Physics II,Vu Thi Hanh Thu,21812512,2018-2019,2,7/1/2019,13/04/2019,Thu,8:00,11:00,I41
-4,CTH001,Fundamental principles of Marxism and Leninism,Nguyen Ngoc Thu,21812501,2018-2019,2,7/1/2019,13/04/2019,Wed,8:00,11:00,I71
+No,ID,CourseName,Lecture name,Years,Term,StartDate, End Date,Day  ,Start ,End ,Room
+1,CS162,Computer Science II,Dinh Ba Tien,2018-2019,2,7/1/2019,13/04/2019,Tue,8AM,11AM,I11
+2,MTH252,Calculus II,Nguyen Huu Anh,2018-2019,2,7/1/2019,13/04/2019,Fri,8AM,11AM,I42
+3,PH212,General Physics II,Vu Thi Hanh Thu,2018-2019,2,7/1/2019,13/04/2019,Thu,8AM,11AM,I41
+4,CTH001,Marxism and Leninism,Nguyen Ngoc Thu,2018-2019,2,7/1/2019,13/04/2019,Wed,8AM,11AM,I71

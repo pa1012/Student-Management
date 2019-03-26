@@ -8,3 +8,10 @@ void updateString(string &str, sf::Event event) {
 	}
 	str += event.text.unicode;
 }
+
+void updateText(sf::Text &text, sf::Font &font, sf::Color color, float posX, float posY, int size) {
+	text.setCharacterSize(size);
+	text.setFillColor(color);
+	text.setFont(font);
+	text.setPosition(posX, posY);
+}

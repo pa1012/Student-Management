@@ -16,7 +16,6 @@ void ArrayOfCourse::loadCourse() {
 		getline(fin, id, ',');
 		getline(fin, name, ',');
 		getline(fin, lecture, ',');
-		getline(fin, lectureID, ',');
 		getline(fin, year, ',');
 		getline(fin, semester, ',');
 		getline(fin, startDate, ',');
@@ -33,7 +32,7 @@ void ArrayOfCourse::loadCourse() {
 
 		if (number != -1) {
 			Course S;
-			S.inputACourse(id, name,lecture, lectureID,year, se, startDate, endDate, dayOfWeek, start, end, room);
+			S.inputACourse(id, name,lecture,year, se, startDate, endDate, dayOfWeek, start, end, room);
 			if (!isExisted(S)) Arr.push_back(S);
 		}
 
@@ -57,6 +56,11 @@ Course ArrayOfCourse::findACourse(string id) {
 	for (int i = 0; i < Arr.size(); i++)
 		if (Arr[i].isMatchedID(id)) return Arr[i];
 	Course c;
-	c.inputACourse("", "", "", "", "", 0, "", "", "", "", "", "" );
+	c.inputACourse("", "", "", "", 0, "", "", "", "", "", "" );
 	return c;
+}
+
+vector<Course> ArrayOfCourse::returnCourses()
+{
+	return Arr;
 }

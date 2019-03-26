@@ -108,3 +108,30 @@ vector<Account> ArrOfAccount::returnRole(int role) {
 		if (A[i].isMatchRole(role)) a.push_back(A[i]);
 	return a;
 }
+
+vector<Account> ArrOfAccount::returnStudent(string courseName)
+{
+	vector<Account> a;
+	for (int i = 0; i < A.size(); i++)
+		if (A[i].isMatchCourse(courseName) && A[i].getRole() == 1) a.push_back(A[i]);
+	return a;
+}
+
+void ArrOfAccount::pushAccount(Account a) {
+	A.push_back(a);
+}
+
+Account ArrOfAccount::getAccount(string ID) {
+	for (int i = 0 ; i < A.size();i++)
+		if (A[i].isMatchName(ID)) {
+			return A[i];
+		}
+}
+
+void ArrOfAccount::removeAccount(string ID) {
+	for (int i = 0 ; i < A.size();i++)
+		if (A[i].isMatchName(ID)) {
+			A.erase(A.begin() + i);
+			return;
+		}
+}

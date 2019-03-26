@@ -88,9 +88,9 @@ void Screen::render(sf::RenderWindow &window, string now) {
 	}
 }
 
-string Screen::handleEvent(sf::Event event, string now, ArrOfAccount &Acc) {
+string Screen::handleEvent(sf::Event event, string now, ArrOfAccount &Acc, string nowAdmin) {
 	
-	if (now != "change password" && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
+	if (nowAdmin == "anywhere" && now != "change password" && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
 		if (logoutButton.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
 			return "logout";
 		}
@@ -105,7 +105,7 @@ string Screen::handleEvent(sf::Event event, string now, ArrOfAccount &Acc) {
 			return "change password";
 		}
 	}
-	if (now == "change password") {
+	if (now == "change password" && nowAdmin == "anywhere") {
 		if (event.type == sf::Event::TextEntered) {
 			updateString(passForChange, event);
 			cout << passForChange << endl;

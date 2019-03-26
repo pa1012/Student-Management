@@ -113,3 +113,39 @@ bool Account::isMatchClass(string name) {
 bool Account::isMatchRole (int r) {
 	return (role == r);
 }
+
+bool Account::isMatchCourse(string name)
+{
+	for (int i = 0; i < courses.size(); i++)
+	{
+		if (courses[i].isMatchedID(name))
+			return true;
+	}
+	return false;
+}
+
+string Account::getinClass()
+{
+	return inClass;
+}
+
+void Account::changePassword(string toChange) {
+	password = toChange;
+}
+void Account::changeLastName(string toChange) {
+	lastName = toChange;
+}
+void Account::changeFirstName(string toChange) {
+	firstName = toChange;
+}
+void Account::changeGender(string toChange) {
+	if (toChange[0] == 'M') gender = 0;
+	else gender = 1;
+}
+void Account::changeDoB(string toChange) {
+	doB = toChange;
+}
+
+void Account::changeClass(string toChange) {
+	inClass = toChange;
+}

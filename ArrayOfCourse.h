@@ -16,4 +16,5 @@ public:
 	bool isExisted(Course C);
 	void tryOutput();
 	Course findACourse(string id);
+	vector<Course> returnCourses();
 };

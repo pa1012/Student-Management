@@ -33,3 +33,9 @@ void convertDateToPass(string date, string &pass) {
 
 }
 
+
+void convertIntToString(int n, string & number) {
+	stringstream s;
+	s << n;
+	number = s.str();
+}

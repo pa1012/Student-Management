@@ -18,10 +18,14 @@ public:
 	int findUsername(string c);
 	bool checkPassword(string c, int k);
 	Account getAccount(int k);
+	Account getAccount(string ID);
 	ArrOfAccount();
 	void clear();
 	void updatePassword(string ID, string pass);
 	vector<Account> returnClass(string name);
 	vector<Account> returnRole(int role);
+	vector<Account> returnStudent(string couseName);
+	void pushAccount(Account a);
+	void removeAccount(string ID);
 };
 

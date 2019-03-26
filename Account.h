@@ -37,5 +37,13 @@ public:
 	void updatePassword(string passwordForChange);
 	bool isMatchClass(string name);
 	bool isMatchRole(int role);
+	bool isMatchCourse(string name);
+	string getinClass();
+	void changePassword(string toChange);
+	void changeLastName(string toChange);
+	void changeFirstName(string toChange);
+	void changeGender(string toChange);
+	void changeDoB(string toChange);
+	void changeClass(string toChange);
 };
 
