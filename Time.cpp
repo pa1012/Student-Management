@@ -1,8 +1,9 @@
 #include"Time.h"
 
-void Time::input(string y, int t) {
+void Time::input(string y, int t, int w) {
 	year = y;
 	term = t;
+	week = w;
 }
 
 void loadTime(vector<Time> &time) {
@@ -10,13 +11,14 @@ void loadTime(vector<Time> &time) {
 	fin.open("Data/Time.txt");
 	bool first = true;
 	string year;
-	int term;
+	int term,week;
 	while (!fin.eof())
 	{
 		fin >> year;
 		fin >> term;
+		fin >> week;
 		Time tmp;
-		tmp.input(year, term);
+		tmp.input(year, term,week);
 		time.push_back(tmp);
 	}
 	fin.close();
@@ -31,4 +33,8 @@ string Time::getYear() {
 }
 int Time::getTerm() {
 	return term;
+}
+
+int Time::getWeek() {
+	return week;
 }

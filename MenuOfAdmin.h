@@ -27,7 +27,7 @@ private:
 	string year;
 public:
 	void initGraphics(ArrayOfClass Classes);
-	void render(sf::RenderWindow &window, string nowAdmin, ArrOfAccount Acc, ArrayOfClass Classes, vector<AccountGraphic> &accountGraphic, vector<CourseGraphic> &courseGraphic, vector<StudentGraphic> & studentGraphic, vector<ScoreGraphic> & scoreGraphic);
+	void render(sf::RenderWindow &window, string nowAdmin, ArrOfAccount Acc, ArrayOfClass Classes, vector<AccountGraphic> &accountGraphic, vector<CourseGraphic> &courseGraphic, vector<StudentGraphic> & studentGraphic, vector<ScoreGraphic> & scoreGraphic,vector<AttendanceGraphic> & attendanceGraphic );
 	string handleEvent(sf::Event event, string nowAdmin, ArrOfAccount Acc, vector<AccountGraphic> & accountGraphic, ArrayOfCourse courses, vector<CourseGraphic> & courseGraphic, vector<StudentGraphic> & studentGraphic);
-	void logic(string &nowAdmin, vector<Time> &time, ArrayOfClass &Classes, ArrOfAccount &Acc, ArrayOfCourse &course, vector<ScoreBoard> scoreBoard, vector<AttendanceList> attendanceList, vector<AccountGraphic>  &accountGraphic, vector<CourseGraphic> &courseGraphic, vector<StudentGraphic> &studentGraphic, vector<ScoreGraphic> &scoreGraphic);
+	void logic(string &nowAdmin, Time time, ArrayOfClass &Classes, ArrOfAccount &Acc, ArrayOfCourse &course, vector<ScoreBoard> scoreBoard, vector<AttendanceList> attendanceList, vector<AccountGraphic>  &accountGraphic, vector<CourseGraphic> &courseGraphic, vector<StudentGraphic> &studentGraphic, vector<ScoreGraphic> &scoreGraphic, vector<AttendanceGraphic> &attendanceGraphic);
 };

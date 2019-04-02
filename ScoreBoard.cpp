@@ -29,7 +29,7 @@ void ScoreBoard::loadScore()
 		getline(fin, inCl, '\n');
 		Score a;
 		if (id != "") {
-			a.inputScore(id, mid, lb, fi,bo, inCl);
+			a.inputScore(id, mid, lb, fi,bo, inCl,courseName);
 			scoreBoard.push_back(a);
 			a.clear();
 		}
@@ -65,4 +65,38 @@ bool ScoreBoard::isMatchCourse(string courseID) {
 
 vector<Score> ScoreBoard::returnScore() {
 	return scoreBoard;
+}
+
+vector<Score> returnScore(vector<ScoreBoard> &score, Account Acc) {
+	vector<Course> course = Acc.returnCourses();
+	vector<Score> Sc;
+	for (int i = 0; i < course.size(); i++) {
+		for (int j = 0 ; j < score.size(); j++)
+			if (score[j].isMatchCourse(course[i].getID())) {
+				Sc.push_back(score[j].getScore(Acc.getID()));
+			}
+	}
+	return Sc;
+}
+
+Score ScoreBoard::getScore(string studentID) {
+	for (int i = 0; i < scoreBoard.size(); i++)
+		if (scoreBoard[i].isMatchID(studentID)) return scoreBoard[i];
+
+}
+
+void saveScoreBoard(vector<ScoreBoard> scoreboard) {
+	for (int i = 0; i < scoreboard.size(); i++)
+		scoreboard[i].save();
+}
+
+void ScoreBoard::save() {
+	ofstream fout;
+	string fileName;
+	fileName = "Data/score/" + courseName + ".csv";
+	fout.open(fileName);
+	fout << "StudentID,Midterm,Lab,Final,Bonus,Class" << endl;
+	for (int i = 0; i < scoreBoard.size(); i++)
+		scoreBoard[i].save();
+	fout.close();
 }

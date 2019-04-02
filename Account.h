@@ -48,5 +48,6 @@ public:
 	void addCourse(Course C);
 	void removeCourse(string courseID);
 	void addCourse(string courseName, ArrayOfCourse course);
+	vector <Course> returnCourses();
 };
 

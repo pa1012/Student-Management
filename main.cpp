@@ -20,8 +20,15 @@ int main()
 {
 	sf::RenderWindow window(sf::VideoMode(1800, 800), "Student Management");
 
-	vector<Time> time;
-	loadTime(time);
+	Time time;
+	ifstream fin;
+	fin.open("Data/Time.txt");
+	string y;
+	int t, w;
+	fin >> y;
+	fin >> t >> w;
+	time.input(y, t, w);
+	fin.close();
 
 	ArrayOfCourse course;
 	course.loadCourse();
@@ -32,9 +39,10 @@ int main()
 	vector<ScoreBoard> scoreBoard;
 	vector<AttendanceList>  attendanceList;
 
-	loadfileScore(scoreBoard,course);
+	loadfileScore(scoreBoard, course);
 	loadfileAttendance(attendanceList, course);
-	
+	initTableAttendance(attendanceList, time);
+
 	ArrayOfClass Class;
 	Class.loadList();
 	Class.initData(Acc);
@@ -67,6 +75,7 @@ int main()
 	vector<CourseGraphic> courseGraphic;
 	vector<StudentGraphic> studentGraphic;
 	vector<ScoreGraphic> scoreGraphic;
+	vector<AttendanceGraphic> attendanceGraphic;
 
 	Account account;
 
@@ -115,7 +124,7 @@ int main()
 				{
 					if (!rect.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y))
 					{
-						now = screenControl.handleEvent(event, now, Acc,nowAdmin);
+						now = screenControl.handleEvent(event, now, Acc,nowAdmin,nowStudent);
 					}
 				}
 				if ( event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
@@ -146,10 +155,15 @@ int main()
 					nowView = "stop";
 				}
 				if (state == STUDENT) {
-					nowStudent = menuStudent.handleEvent(event);
+					if (scroll == false && (event.type == sf::Event::MouseButtonPressed || event.type == sf::Event::TextEntered)) {
+						nowStudent = menuStudent.handleEvent(event,nowStudent);
+					}
 				}
 				if (state == LECTURER) {
-					nowLecturer = menuLecturer.handleEvent(event,nowLecturer,Acc,accountGraphic);
+					if (scroll == false && (event.type == sf::Event::MouseButtonPressed || event.type == sf::Event::TextEntered)) {
+						nowLecturer = menuLecturer.handleEvent(event, nowLecturer, Acc, accountGraphic);
+					}
+					
 				}
 				if (state == ADMIN) {
 					if (scroll == false && (event.type == sf::Event::MouseButtonPressed || event.type == sf::Event::TextEntered))
@@ -168,7 +182,7 @@ int main()
 			{
 				state = ADMIN;
 				menuAdmin.initGraphics(Class);
-				now = "";
+				now = "anywhere";
 				nowView = "";
 				screenControl.updateAccount(account);
 				screenControl.initGraphic();
@@ -177,7 +191,7 @@ int main()
 			{
 				state = STUDENT;
 				menuStudent.initGraphics();
-				now = "";
+				now = "anywhere";
 				nowView = "";
 				screenControl.updateAccount(account);
 				screenControl.initGraphic();
@@ -186,7 +200,7 @@ int main()
 			{
 				state = LECTURER;
 				menuLecturer.initGraphics();
-				now = "";
+				now = "anywhere";
 				nowView = "";
 				screenControl.updateAccount(account); 
 				screenControl.initGraphic();
@@ -225,7 +239,9 @@ int main()
 			view.reset(sf::FloatRect(screenX, screenY, SCREEN_WIDTH, SCREEN_HEIGHT ));
 			//
 			if (state == STUDENT) {
-				//cout << nowStudent << endl;
+				cout << nowStudent << endl;
+				menuStudent.logic(time,account, nowStudent,course,attendanceList,scoreBoard,courseGraphic,scoreGraphic,attendanceGraphic);
+				//cout << now << endl;
 			}
 			else 
 			if (state == LECTURER) {
@@ -234,7 +250,7 @@ int main()
 			else 
 			if (state == ADMIN) {
 				cout << nowAdmin << endl;
-				menuAdmin.logic(nowAdmin,time, Class, Acc, course,scoreBoard,attendanceList,accountGraphic,courseGraphic,studentGraphic,scoreGraphic);
+				menuAdmin.logic(nowAdmin,time, Class, Acc, course,scoreBoard,attendanceList,accountGraphic,courseGraphic,studentGraphic,scoreGraphic, attendanceGraphic);
 			}
 		}
 		
@@ -252,7 +268,7 @@ int main()
 			screenControl.render(window, now);
 			window.draw(rect);
 			//window.draw(r);
-			menuStudent.render(window);
+			menuStudent.render(window,nowStudent,courseGraphic,scoreGraphic,attendanceGraphic);
 			break;
 		case LECTURER:
 			window.setView(view);
@@ -265,7 +281,7 @@ int main()
 			screenControl.render(window,now);
 			window.draw(rect);
 			
-			menuAdmin.render(window,nowAdmin,Acc,Class,accountGraphic,courseGraphic,studentGraphic,scoreGraphic);
+			menuAdmin.render(window,nowAdmin,Acc,Class,accountGraphic,courseGraphic,studentGraphic,scoreGraphic, attendanceGraphic);
 			break;
 		}
 
@@ -275,5 +291,7 @@ int main()
 	Acc.saveAccount();
 	Class.save();
 	course.saveCourse();
+	saveAttendance(attendanceList);
+	saveScoreBoard(scoreBoard);
 	return 0;
 }

@@ -17,7 +17,7 @@ private:
 public:
 	void initGraphic();
 	void render(sf::RenderWindow &window,string now);
-	string handleEvent(sf::Event event, string now,ArrOfAccount &Acc,string nowAdmin);
+	string handleEvent(sf::Event event, string now,ArrOfAccount &Acc,string nowAdmin,string nowStudent);
 	void logic(string now, sf::Sprite &rect);
 	void updateAccount(Account a);
 };

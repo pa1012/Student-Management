@@ -99,7 +99,7 @@ void MenuOfAdmin::initGraphics(ArrayOfClass Classes) {
 	nameNewClass.setString(nameAddClass);
 }
 
-void MenuOfAdmin::render(sf::RenderWindow &window, string nowAdmin, ArrOfAccount Acc, ArrayOfClass Classes, vector<AccountGraphic> &accountGraphic, vector<CourseGraphic> &courseGraphic, vector<StudentGraphic> & studentGraphic , vector<ScoreGraphic> & scoreGraphic) {
+void MenuOfAdmin::render(sf::RenderWindow &window, string nowAdmin, ArrOfAccount Acc, ArrayOfClass Classes, vector<AccountGraphic> &accountGraphic, vector<CourseGraphic> &courseGraphic, vector<StudentGraphic> & studentGraphic , vector<ScoreGraphic> & scoreGraphic, vector <AttendanceGraphic> &attendanceGraphic) {
 	window.draw(classes);
 	window.draw(course);
 	window.draw(scoreBoard);
@@ -175,6 +175,11 @@ void MenuOfAdmin::render(sf::RenderWindow &window, string nowAdmin, ArrOfAccount
 		window.draw(instruction);
 		window.draw(adminText);
 		renderTableScore(window, scoreGraphic);
+	}
+	if (nowAdmin == "attendance" || nowAdmin == "attend course ID" || nowAdmin == "attend view") {
+		window.draw(instruction);
+		window.draw(adminText);
+		renderTableAttendance(window, attendanceGraphic);
 	}
 }
 
@@ -552,7 +557,7 @@ string MenuOfAdmin::handleEvent(sf::Event event, string nowAdmin, ArrOfAccount A
 	}
 }
 
-void MenuOfAdmin::logic(string &nowAdmin,vector<Time> &time, ArrayOfClass &Classes, ArrOfAccount &Acc, ArrayOfCourse &course,vector<ScoreBoard> scoreBoard,vector<AttendanceList> attendanceList, vector<AccountGraphic>  &accountGraphic,vector<CourseGraphic> &courseGraphic, vector<StudentGraphic> &studentGraphic , vector<ScoreGraphic> &scoreGraphic) {
+void MenuOfAdmin::logic(string &nowAdmin,Time time, ArrayOfClass &Classes, ArrOfAccount &Acc, ArrayOfCourse &course,vector<ScoreBoard> scoreBoard,vector<AttendanceList> attendanceList, vector<AccountGraphic>  &accountGraphic,vector<CourseGraphic> &courseGraphic, vector<StudentGraphic> &studentGraphic , vector<ScoreGraphic> &scoreGraphic , vector<AttendanceGraphic> &attendanceGraphic) {
 	if (nowAdmin == "class") {
 		adminEnter = "";
 		adminText.setString("");
@@ -706,9 +711,6 @@ void MenuOfAdmin::logic(string &nowAdmin,vector<Time> &time, ArrayOfClass &Class
 	}
 	if (nowAdmin == "create course") {
 		course.loadCourse(year, term);
-		Time t;
-		t.input(year, term);
-		time.push_back(t);
 		initTableCourse(font, courseGraphic, course, year, term);
 		Acc.updateCourse(course,year,term);
 		nowAdmin = "course options";
@@ -717,12 +719,6 @@ void MenuOfAdmin::logic(string &nowAdmin,vector<Time> &time, ArrayOfClass &Class
 	if (nowAdmin == "delete course") {
 
 		course.deleteAll(year,term);
-
-		for (int i = 0 ; i< time.size(); i++)
-			if (time[i].getYear() == year && time[i].getTerm() == term) {
-				time.erase(time.begin() + i);
-				break;
-			}
 		year = "";
 		term = 0;
 		nowAdmin = "course";
@@ -956,6 +952,7 @@ void MenuOfAdmin::logic(string &nowAdmin,vector<Time> &time, ArrayOfClass &Class
 		adminEnter = "";
 		adminText.setString("|");
 		nowAdmin = "score course ID";
+		scoreGraphic.clear();
 		return;
 	}
 	if (nowAdmin == "attendance") {
@@ -967,6 +964,7 @@ void MenuOfAdmin::logic(string &nowAdmin,vector<Time> &time, ArrayOfClass &Class
 	}
 	if (nowAdmin == "score done") {
 		courseID = adminEnter;
+		scoreGraphic.clear();
 		initTableScore(font, scoreGraphic, scoreBoard, course, courseID);
 		if (scoreGraphic.size() <= 1) {
 			instruction.setString("Course ID: ");
@@ -979,6 +977,23 @@ void MenuOfAdmin::logic(string &nowAdmin,vector<Time> &time, ArrayOfClass &Class
 		instruction.setString("Course ID : " + courseID);
 		adminText.setString("");
 		nowAdmin = "scoreboard view";
+		return;
+	}
+	if (nowAdmin == "attend done") {
+		courseID = adminEnter;
+		attendanceGraphic.clear();
+		initTableAttendance(font,attendanceGraphic,attendanceList,course,courseID);
+		if (attendanceGraphic.size() <= 1) {
+			instruction.setString("Course ID: ");
+			adminEnter = "";
+			adminText.setString("|");
+			nowAdmin = "attend course ID";
+			scoreGraphic.clear();
+			return;
+		}
+		instruction.setString("Course ID : " + courseID);
+		adminText.setString("");
+		nowAdmin = "attend view";
 		return;
 	}
 }

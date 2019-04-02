@@ -168,3 +168,7 @@ void Account::addCourse(string courseName, ArrayOfCourse course) {
 	Course C = course.findACourse(courseName);
 	courses.push_back(C);
 }
+
+vector <Course> Account::returnCourses() {
+	return courses;
+}

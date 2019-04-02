@@ -88,9 +88,9 @@ void Screen::render(sf::RenderWindow &window, string now) {
 	}
 }
 
-string Screen::handleEvent(sf::Event event, string now, ArrOfAccount &Acc, string nowAdmin) {
+string Screen::handleEvent(sf::Event event, string now, ArrOfAccount &Acc, string nowAdmin , string nowStudent) {
 	
-	if (nowAdmin == "anywhere" && now != "change password" && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
+	if ((nowAdmin == "anywhere"  || nowStudent == "anywhere")&& now != "change password" && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
 		if (logoutButton.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
 			return "logout";
 		}

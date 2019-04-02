@@ -33,6 +33,7 @@ public:
 };
 
 class AttendanceGraphic {
+public:
 	sf::Text no,stID, w[5];
 };
 void renderTableClass(sf::RenderWindow &window, vector<AccountGraphic> A);
@@ -41,6 +42,7 @@ void initTableClass(sf::Font & font, vector<AccountGraphic> &A, string className
 void renderTableCourse(sf::RenderWindow &window, vector<CourseGraphic> A);
 void initTableCourse(sf::Font & font, vector<CourseGraphic> &A, ArrayOfCourse Arr, string year, int term); \
 void initTableCourse(sf::Font & font, vector<CourseGraphic> &A, ArrayOfCourse Arr);
+void initTableCourse(sf::Font & font, vector<CourseGraphic> &A, Account Acc);
 
 void renderTableCourse_Student(sf::RenderWindow &window, vector<StudentGraphic> A);
 void initTableCourse_Student(sf::Font & font, vector<StudentGraphic> &A, string courseName, ArrOfAccount Std);
@@ -49,7 +51,9 @@ void renderTableLecturer(sf::RenderWindow &window, vector<AccountGraphic> A); //
 void initTableLecturer(sf::Font & font, vector<AccountGraphic> &A, ArrOfAccount Acc); //
 
 void initTableScore(sf::Font & font, vector<ScoreGraphic> &A, vector<ScoreBoard> score, ArrayOfCourse course, string courseID);
+void initTableScore(sf::Font & font, vector<ScoreGraphic> &A, vector<ScoreBoard> score, Account Acc);
 void renderTableScore(sf::RenderWindow &window, vector<ScoreGraphic>  A);
 
 void initTableAttendance(sf::Font & font, vector <AttendanceGraphic> & A, vector<AttendanceList> attend, ArrayOfCourse course,string courseID);
+void initTableAttendance(sf::Font & font, vector<AttendanceGraphic> &A, vector<AttendanceList> attend, Account Acc);
 void renderTableAttendance(sf::RenderWindow & window, vector<AttendanceGraphic> A);

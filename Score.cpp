@@ -2,7 +2,7 @@
 
 
 
-void Score::inputScore(string id, float mid, float lb, float fi,float bo, string inCl)
+void Score::inputScore(string id, float mid, float lb, float fi,float bo, string inCl,string couID)
 {
 	studentID = id;
 	midterm = mid;
@@ -10,6 +10,7 @@ void Score::inputScore(string id, float mid, float lb, float fi,float bo, string
 	final = fi;
 	bonus = bo;
 	inClass = inCl;
+	courseID = couID;
 }
 
 void Score::clear() {
@@ -48,4 +49,25 @@ string Score::getBonus() {
 }
 string Score::getClass() {
 	return inClass;
+}
+
+bool Score::isMatchID(string ID) {
+	return (ID == studentID);
+}
+
+string Score::getCourseID() {
+	return courseID;
+}
+
+void Score::save() {
+	ofstream fout;
+	string fileName = "Data/score/" + courseID + ".csv";
+	fout.open(fileName, ios::app);
+	fout << studentID << ',';
+	fout <<fixed<<setprecision(1)<< midterm << ',';
+	fout <<fixed<<setprecision(1)<< lab << ',';
+	fout <<fixed<<setprecision(1)<< final << ',';
+	fout <<fixed<<setprecision(1)<< bonus << ',';
+	fout << inClass << '\n';
+	fout.close();
 }

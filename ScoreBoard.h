@@ -5,6 +5,7 @@
 #include<sstream>
 #include "Score.h"
 #include"ArrayOfCourse.h"
+#include"ArrayOfAccount.h"
 using namespace std;
 
 class ScoreBoard {
@@ -18,6 +19,9 @@ public:
 	void clear();
 	bool isMatchCourse(string courseID);
 	vector<Score> returnScore();
-
+	Score getScore(string studentID);
+	void save();
 };
 void loadfileScore(vector<ScoreBoard> &score, ArrayOfCourse course);
+vector<Score> returnScore(vector<ScoreBoard> &score, Account Acc);
+void saveScoreBoard(vector<ScoreBoard> scoreboard);
