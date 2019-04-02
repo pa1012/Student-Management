@@ -78,3 +78,27 @@ string Course::getRoom()
 string Course::getName() {
 	return name;
 }
+
+void Course::save(int i) {
+	ofstream fout;
+	fout.open("Data/Course.csv", ios::app);
+	fout << i << ',' << ID << ',' << name << ',' << lecture << ',' << inYear << ',' << semester << ',' << startDate << ',' << endDate << ',' << dayOfWeek << ',' << start << ',' << end << ',' << room << endl;
+	fout.close();
+}
+
+void Course::updateCourseName(string s) {
+	name = s;
+}
+void Course::updateDayOfWeek(string s) {
+	dayOfWeek = s;
+
+}
+void Course::updateStart(string s) {
+	start = s;
+}
+void Course::updateEnd(string s) {
+	end = s;
+}
+void Course::updateRoom(string s) {
+	room = s;
+}

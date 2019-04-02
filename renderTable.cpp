@@ -1,6 +1,6 @@
 #include"RenderTable.h"
 
-void initTableClass(sf::Font &font,vector<AccountGraphic> &A, string className, ArrOfAccount Acc) {
+void initTableClass(sf::Font &font, vector<AccountGraphic> &A, string className, ArrOfAccount Acc) {
 	int n = 1;
 	vector<Account> acc;
 	acc = Acc.returnClass(className);
@@ -8,14 +8,14 @@ void initTableClass(sf::Font &font,vector<AccountGraphic> &A, string className, 
 	AccountGraphic ag;
 	string number;
 	float posY = 300;
-	updateText(ag.no, font, sf::Color::White, 408, posY,15);
-	updateText(ag.userName, font, sf::Color::White, 440, posY,15);
-	updateText(ag.password, font, sf::Color::White, 538, posY,15);
-	updateText(ag.ID, font, sf::Color::White, 713, posY,15);
+	updateText(ag.no, font, sf::Color::White, 408, posY, 15);
+	updateText(ag.userName, font, sf::Color::White, 440, posY, 15);
+	updateText(ag.password, font, sf::Color::White, 538, posY, 15);
+	updateText(ag.ID, font, sf::Color::White, 713, posY, 15);
 	updateText(ag.lastName, font, sf::Color::White, 811, posY, 15);
 	updateText(ag.firstName, font, sf::Color::White, 1151, posY, 15);
 	updateText(ag.doB, font, sf::Color::White, 1260, posY, 15);
-	updateText(ag.gender, font, sf::Color::White, 1390 , posY, 15);
+	updateText(ag.gender, font, sf::Color::White, 1390, posY, 15);
 	updateText(ag.inClass, font, sf::Color::White, 1490, posY, 15);
 	ag.no.setString("No");
 	ag.userName.setString("Username");
@@ -29,9 +29,9 @@ void initTableClass(sf::Font &font,vector<AccountGraphic> &A, string className, 
 
 
 	A.push_back(ag);
-	
+
 	for (int i = 0; i < acc.size(); i++) {
-		
+
 		convertIntToString(n, number);
 		ag.no.setString(number);
 		ag.doB.setString(acc[i].getDate());
@@ -63,7 +63,7 @@ void initTableClass(sf::Font &font,vector<AccountGraphic> &A, string className, 
 
 void renderTableClass(sf::RenderWindow &window, vector<AccountGraphic> A)
 {
-	
+
 	for (int i = 0; i < A.size(); i++)
 	{
 		window.draw(A[i].no);
@@ -76,6 +76,78 @@ void renderTableClass(sf::RenderWindow &window, vector<AccountGraphic> A)
 		window.draw(A[i].gender);
 		window.draw(A[i].inClass);
 	}
+}
+
+void initTableCourse(sf::Font & font, vector<CourseGraphic> &A, ArrayOfCourse Arr, string year, int term) {
+	int n = 1;
+	vector<Course> arr;
+	arr = Arr.returnCourses(year, term);
+	A.clear();
+	CourseGraphic ag;
+	string number;
+	float posY = 300;
+	updateText(ag.no, font, sf::Color::White, 408, posY, 15);
+	updateText(ag.ID, font, sf::Color::White, 440, posY, 15);
+	updateText(ag.name, font, sf::Color::White, 530, posY, 15);
+	updateText(ag.lecture, font, sf::Color::White, 852, posY, 15);
+	updateText(ag.inYear, font, sf::Color::White, 1030, posY, 15);
+	updateText(ag.semester, font, sf::Color::White, 1150, posY, 15);
+	updateText(ag.startDate, font, sf::Color::White, 1232, posY, 15);
+	updateText(ag.endDate, font, sf::Color::White, 1340, posY, 15);
+	updateText(ag.dayOfWeek, font, sf::Color::White, 1450, posY, 15);
+	updateText(ag.start, font, sf::Color::White, 1514, posY, 15);
+	updateText(ag.end, font, sf::Color::White, 1600, posY, 15);
+	updateText(ag.room, font, sf::Color::White, 1700, posY, 15);
+	ag.no.setString("No");
+	ag.ID.setString("ID");
+	ag.name.setString("Course name");
+	ag.lecture.setString("Lecturer name");
+	ag.inYear.setString("Years");
+	ag.semester.setString("Term");
+	ag.startDate.setString("Start Date");
+	ag.endDate.setString("End Date");
+	ag.dayOfWeek.setString("Day");
+	ag.start.setString("Start Hour");
+	ag.end.setString("End Hour");
+	ag.room.setString("Room");
+
+	A.push_back(ag);
+
+	for (int i = 0; i < arr.size(); i++)
+	{
+		string number = "";
+		convertIntToString(n, number);
+		ag.name.setString(arr[i].getName());
+		ag.no.setString(number);
+		ag.ID.setString(arr[i].getID());
+		ag.lecture.setString(arr[i].getLecture());
+		ag.inYear.setString(arr[i].getYear());
+		string term = "";
+		convertIntToString(arr[i].getSemester(), term);
+		ag.semester.setString(term);
+		ag.startDate.setString(arr[i].getStartDate());
+		ag.endDate.setString(arr[i].getEndDate());
+		ag.dayOfWeek.setString(arr[i].getDayOfWeek());
+		ag.start.setString(arr[i].getStart());
+		ag.end.setString(arr[i].getEnd());
+		ag.room.setString(arr[i].getRoom());
+		n++;
+		posY = posY + 35;
+		updateText(ag.no, font, sf::Color::White, 408, posY, 15);
+		updateText(ag.ID, font, sf::Color::White, 440, posY, 15);
+		updateText(ag.name, font, sf::Color::White, 530, posY, 15);
+		updateText(ag.lecture, font, sf::Color::White, 852, posY, 15);
+		updateText(ag.inYear, font, sf::Color::White, 1030, posY, 15);
+		updateText(ag.semester, font, sf::Color::White, 1150, posY, 15);
+		updateText(ag.startDate, font, sf::Color::White, 1232, posY, 15);
+		updateText(ag.endDate, font, sf::Color::White, 1340, posY, 15);
+		updateText(ag.dayOfWeek, font, sf::Color::White, 1450, posY, 15);
+		updateText(ag.start, font, sf::Color::White, 1514, posY, 15);
+		updateText(ag.end, font, sf::Color::White, 1600, posY, 15);
+		updateText(ag.room, font, sf::Color::White, 1700, posY, 15);
+		A.push_back(ag);
+	}
+	return;
 }
 
 void initTableCourse(sf::Font & font, vector<CourseGraphic> &A, ArrayOfCourse Arr) {
@@ -224,5 +296,141 @@ void renderTableCourse_Student(sf::RenderWindow &window, vector<StudentGraphic> 
 		window.draw(A[i].firstName);
 		window.draw(A[i].ID);
 		window.draw(A[i].Class);
+	}
+}
+
+void initTableLecturer(sf::Font & font, vector<AccountGraphic> &A, ArrOfAccount Acc)
+{
+	int n = 1;
+	vector<Account> acc;
+	acc = Acc.returnRole(2);
+	A.clear();
+	AccountGraphic ag;
+	string number;
+	float posY = 300;
+	updateText(ag.no, font, sf::Color::White, 408, posY, 15);
+	updateText(ag.userName, font, sf::Color::White, 440, posY, 15);
+	updateText(ag.password, font, sf::Color::White, 538, posY, 15);
+	updateText(ag.ID, font, sf::Color::White, 713, posY, 15);
+	updateText(ag.lastName, font, sf::Color::White, 811, posY, 15);
+	updateText(ag.firstName, font, sf::Color::White, 1151, posY, 15);
+	updateText(ag.doB, font, sf::Color::White, 1260, posY, 15);
+	updateText(ag.gender, font, sf::Color::White, 1390, posY, 15);
+	ag.no.setString("No");
+	ag.userName.setString("Username");
+	ag.password.setString("Password");
+	ag.ID.setString("ID");
+	ag.lastName.setString("Last name");
+	ag.firstName.setString("First name");
+	ag.doB.setString("DoB");
+	ag.gender.setString("Gender");
+
+
+	A.push_back(ag);
+
+	for (int i = 0; i < acc.size(); i++) {
+
+		convertIntToString(n, number);
+		ag.no.setString(number);
+		ag.doB.setString(acc[i].getDate());
+		ag.firstName.setString(acc[i].getFirstName());
+		ag.lastName.setString(acc[i].getLastName());
+		if (acc[i].getGender() == 0) {
+			ag.gender.setString("Male");
+		}
+		else ag.gender.setString("Female");
+		ag.userName.setString(acc[i].getUsername());
+		ag.password.setString(acc[i].getPassword());
+		ag.ID.setString(acc[i].getID());
+		n++;
+		posY = posY + 30;
+		updateText(ag.no, font, sf::Color::White, 408, posY, 15);
+		updateText(ag.userName, font, sf::Color::White, 440, posY, 15);
+		updateText(ag.password, font, sf::Color::White, 538, posY, 15);
+		updateText(ag.ID, font, sf::Color::White, 713, posY, 15);
+		updateText(ag.lastName, font, sf::Color::White, 811, posY, 15);
+		updateText(ag.firstName, font, sf::Color::White, 1151, posY, 15);
+		updateText(ag.doB, font, sf::Color::White, 1260, posY, 15);
+		updateText(ag.gender, font, sf::Color::White, 1390, posY, 15);
+		A.push_back(ag);
+	}
+	return;
+}
+
+void renderTableLecturer(sf::RenderWindow &window, vector<AccountGraphic> A)
+{
+	for (int i = 0; i < A.size(); i++)
+	{
+		window.draw(A[i].no);
+		window.draw(A[i].userName);
+		window.draw(A[i].password);
+		window.draw(A[i].ID);
+		window.draw(A[i].lastName);
+		window.draw(A[i].firstName);
+		window.draw(A[i].doB);
+		window.draw(A[i].gender);
+	}
+}
+
+void initTableScore(sf::Font & font, vector<ScoreGraphic> &A, vector<ScoreBoard> score, ArrayOfCourse course, string courseID) {
+	ScoreGraphic sg;
+	if (!course.isExisted(courseID))  return;
+	float posY = 300;
+	int n = 1;
+	string number;
+	vector <Score> Sc;
+	for (int i = 0 ; i < score.size() ; i++)
+		if (score[i].isMatchCourse(courseID)) {
+			Sc = score[i].returnScore();
+			break;
+		}
+	
+	updateText(sg.no, font, sf::Color::White, 408, posY, 15);
+	updateText(sg.stID, font, sf::Color::White, 440, posY, 15);
+	updateText(sg.mid, font, sf::Color::White, 570, posY, 15);
+	updateText(sg.lab, font, sf::Color::White, 690, posY, 15);
+	updateText(sg.fin, font, sf::Color::White, 795, posY, 15);
+	updateText(sg.bonus, font, sf::Color::White, 900, posY, 15);
+	updateText(sg.inclass, font, sf::Color::White, 1005, posY, 15);
+	sg.no.setString("No");
+	sg.stID.setString("StudentID");
+	sg.mid.setString("Midterm");
+	sg.lab.setString("Lab");
+	sg.fin.setString("Final");
+	sg.bonus.setString("Bonus");
+	sg.inclass.setString("Class");
+	A.push_back(sg);
+	for (int i = 0; i < Sc.size(); i++) {
+		convertIntToString(n, number);
+		posY = posY + 30;
+		sg.no.setString(number);
+		sg.stID.setString(Sc[i].getStudentID());
+		sg.mid.setString(Sc[i].getMidterm());
+		sg.lab.setString(Sc[i].getLab());
+		sg.fin.setString(Sc[i].getFinal());
+		sg.bonus.setString(Sc[i].getBonus());
+		sg.inclass.setString(Sc[i].getClass());
+		updateText(sg.no, font, sf::Color::White, 408, posY, 15);
+		updateText(sg.stID, font, sf::Color::White, 440, posY, 15);
+		updateText(sg.mid, font, sf::Color::White, 570, posY, 15);
+		updateText(sg.lab, font, sf::Color::White, 690, posY, 15);
+		updateText(sg.fin, font, sf::Color::White, 795, posY, 15);
+		updateText(sg.bonus, font, sf::Color::White, 900, posY, 15);
+		updateText(sg.inclass, font, sf::Color::White, 1005, posY, 15);
+		n++;
+		A.push_back(sg);
+	}
+
+}
+void renderTableScore(sf::RenderWindow &window, vector<ScoreGraphic>  A) {
+	for (int i = 0; i < A.size(); i++)
+	{
+		window.draw(A[i].no);
+		window.draw(A[i].bonus);
+		window.draw(A[i].fin);
+		window.draw(A[i].inclass);
+		window.draw(A[i].lab);
+		window.draw(A[i].stID);
+		window.draw(A[i].mid);
 	}
 }

@@ -130,6 +130,8 @@
     <ClCompile Include="ArrayOfAccount.cpp" />
     <ClCompile Include="ArrayOfClass.cpp" />
     <ClCompile Include="ArrayOfCourse.cpp" />
+    <ClCompile Include="Attendance.cpp" />
+    <ClCompile Include="AttendanceList.cpp" />
     <ClCompile Include="Class.cpp" />
     <ClCompile Include="Convert.cpp" />
     <ClCompile Include="Course.cpp" />
@@ -142,8 +144,11 @@
     <ClCompile Include="MenuOfStudent.cpp" />
     <ClCompile Include="renderTable.cpp" />
     <ClCompile Include="School.cpp" />
+    <ClCompile Include="Score.cpp" />
+    <ClCompile Include="ScoreBoard.cpp" />
     <ClCompile Include="ScreenControl.cpp" />
     <ClCompile Include="Student.cpp" />
+    <ClCompile Include="Time.cpp" />
     <ClCompile Include="Update.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -152,6 +157,9 @@
     <ClInclude Include="ArrayOfAccount.h" />
     <ClInclude Include="ArrayOfClass.h" />
     <ClInclude Include="ArrayOfCourse.h" />
+    <ClInclude Include="ArrayOfTime.h" />
+    <ClInclude Include="Attendance.h" />
+    <ClInclude Include="AttendanceList.h" />
     <ClInclude Include="Base.h" />
     <ClInclude Include="Class.h" />
     <ClInclude Include="Constant.h" />
@@ -165,8 +173,11 @@
     <ClInclude Include="MenuStudent.h" />
     <ClInclude Include="RenderTable.h" />
     <ClInclude Include="School.h" />
+    <ClInclude Include="Score.h" />
+    <ClInclude Include="ScoreBoard.h" />
     <ClInclude Include="ScreenControl.h" />
     <ClInclude Include="Student.h" />
+    <ClInclude Include="Time.h" />
     <ClInclude Include="Update.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

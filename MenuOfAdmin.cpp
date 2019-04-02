@@ -11,6 +11,14 @@ void MenuOfAdmin::initGraphics(ArrayOfClass Classes) {
 	loadTexture("edit.png", editTexture);
 	loadTexture("remove.png", removeTexture);
 	loadTexture("changeClass.png", changeClassTexture);
+	loadTexture("create.png", createTexture);
+	loadTexture("delete.png", deleteTexture);
+	loadTexture("view.png", viewTexture);
+	loadTexture("update.png", updateTexture);
+	loadTexture("lecturer.png", lecturerTexture);
+	loadTexture("addClass.png", addClassTexture);
+
+	addClass.setTexture(addClassTexture);
 
 	updateText(instruction, font, sf::Color::White, 408, 170, 30);
 	updateText(adminText, font, sf::Color::White, 408, 220, 30);
@@ -19,7 +27,7 @@ void MenuOfAdmin::initGraphics(ArrayOfClass Classes) {
 	add.setPosition(408, 100);
 
 	edit.setTexture(editTexture);
-	edit.setPosition(595,100);
+	edit.setPosition(595, 100);
 
 	remove.setTexture(removeTexture);
 	remove.setPosition(782, 100);
@@ -35,12 +43,36 @@ void MenuOfAdmin::initGraphics(ArrayOfClass Classes) {
 
 	course.setTexture(courseTexture);
 	course.setPosition(40, 224);
+	
+	create.setTexture(createTexture);
+	create.setPosition(408, 100);
+
+	deleteS.setTexture(deleteTexture);
+	deleteS.setPosition(595, 100);
+
+	view.setTexture(viewTexture);
+	view.setPosition(782, 100);
+
+	update.setTexture(updateTexture);
+	update.setPosition(971, 100);
 
 	scoreBoard.setTexture(scoreBoardTexture);
 	scoreBoard.setPosition(40, 318);
 
 	attendanceList.setTexture(attendanceListTexture);
 	attendanceList.setPosition(40, 415);
+
+	lecturer.setTexture(lecturerTexture);
+	lecturer.setPosition(40, 514);
+
+	createLecturer.setTexture(addTexture);
+	createLecturer.setPosition(408, 100);
+
+	deleteLecturer.setTexture(removeTexture);
+	deleteLecturer.setPosition(595, 100);
+
+	updateLecturer.setTexture(editTexture);
+	updateLecturer.setPosition(782, 100);
 
 	sf::Text newText;
 
@@ -57,7 +89,7 @@ void MenuOfAdmin::initGraphics(ArrayOfClass Classes) {
 		newText.setString(Classes.getName(i));
 		nameOfClass.push_back(newText);
 	}
-	
+
 	nameAddClass = "";
 
 	nameNewClass.setPosition(432, nameOfClass[nameOfClass.size() - 1].getPosition().y + 60);
@@ -67,16 +99,18 @@ void MenuOfAdmin::initGraphics(ArrayOfClass Classes) {
 	nameNewClass.setString(nameAddClass);
 }
 
-void MenuOfAdmin::render(sf::RenderWindow &window, string nowAdmin, ArrOfAccount Acc, ArrayOfClass Classes, vector<AccountGraphic> &accountGraphic, vector<CourseGraphic> &courseGraphic, vector<StudentGraphic> & studentGraphic) {
+void MenuOfAdmin::render(sf::RenderWindow &window, string nowAdmin, ArrOfAccount Acc, ArrayOfClass Classes, vector<AccountGraphic> &accountGraphic, vector<CourseGraphic> &courseGraphic, vector<StudentGraphic> & studentGraphic , vector<ScoreGraphic> & scoreGraphic) {
 	window.draw(classes);
 	window.draw(course);
 	window.draw(scoreBoard);
 	window.draw(attendanceList);
+	window.draw(lecturer);
 	if (nowAdmin == "class" || nowAdmin == "import a class" || nowAdmin == "import success") {
 		for (int i = 0; i < nameOfClass.size(); i++)
 			window.draw(nameOfClass[i]);
 		window.draw(importAClass);
 		window.draw(adminText);
+		return;
 	}
 
 	if (nowAdmin == "view class" || nowAdmin == "add student" || nowAdmin == "student ID class" || nowAdmin == "what to change" ||
@@ -91,25 +125,60 @@ void MenuOfAdmin::render(sf::RenderWindow &window, string nowAdmin, ArrOfAccount
 			window.draw(adminText);
 		}
 		renderTableClass(window, accountGraphic);
+		return;
 	}
 
-
-	/*for (int i = 0; i < nameOfClass.size(); i++) {
-		if (nowAdmin == nameOfClass[i].getString()) {
-			renderTableClass(window, accountGraphic);
-			break;
-		}
-	}*/
-	if (nowAdmin == "course") {
+	if (nowAdmin == "course term done" || nowAdmin == "course" || nowAdmin == "course year" || nowAdmin == "course term" || nowAdmin == "course year done") {
+		window.draw(instruction);
+		window.draw(adminText);
+		return;
+	}
+	if (nowAdmin == "course options" || nowAdmin =="enter course" || nowAdmin == "remove course" || nowAdmin == "remove course ID"  ||
+		nowAdmin == "edit course?" || nowAdmin =="edit course ID" || nowAdmin =="course what?"  ) {
+		window.draw(create);
+		window.draw(deleteS);
+		window.draw(edit);
+		window.draw(add);
+		window.draw(remove);
+		window.draw(instruction);
+		window.draw(adminText);
 		renderTableCourse(window, courseGraphic);
+		return;
 	}
-	if (nowAdmin == "view student") {
-		
+	
+	
+
+	if (nowAdmin == "lecturer" || nowAdmin == "create Lecturer" || nowAdmin == "create Lecturer success" || nowAdmin == "change Lecturer" ||
+		nowAdmin == "enter Lecturer inform" || nowAdmin == "edit Lecturer done" || nowAdmin == "delete Lecturer" || nowAdmin == "delete Lecturer success" ||
+		nowAdmin == "update Lecturer" || nowAdmin == "update Lecturer success")
+	{
+		window.draw(createLecturer);
+		window.draw(deleteLecturer);
+		window.draw(updateLecturer);
+		window.draw(instruction);
+		window.draw(adminText);
+		renderTableLecturer(window, accountGraphic);
+		return;
+	}
+
+	if (nowAdmin == "view student" || nowAdmin == "add st -> course" || nowAdmin == "remove st fr course" || nowAdmin == "add a class" ||
+		nowAdmin == "+ st ID" || nowAdmin == "- st ID" || nowAdmin == "+ class") {
+		window.draw(instruction);
+		window.draw(adminText);
+		window.draw(add);
+		window.draw(remove);
+		window.draw(addClass);
 		renderTableCourse_Student(window, studentGraphic);
+		return;
+	}
+	if (nowAdmin == "score" || nowAdmin == "score course ID" || nowAdmin == "scoreboard view") {
+		window.draw(instruction);
+		window.draw(adminText);
+		renderTableScore(window, scoreGraphic);
 	}
 }
 
-string MenuOfAdmin::handleEvent(sf::Event event,string nowAdmin, ArrOfAccount Acc, vector<AccountGraphic> & accountGraphic, ArrayOfCourse courses, vector<CourseGraphic> & courseGraphic, vector<StudentGraphic> & studentGraphic) {
+string MenuOfAdmin::handleEvent(sf::Event event, string nowAdmin, ArrOfAccount Acc, vector<AccountGraphic> & accountGraphic, ArrayOfCourse courses, vector<CourseGraphic> & courseGraphic, vector<StudentGraphic> & studentGraphic) {
 	if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
 		if (nowAdmin == "anywhere") {
 			if (classes.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
@@ -117,22 +186,25 @@ string MenuOfAdmin::handleEvent(sf::Event event,string nowAdmin, ArrOfAccount Ac
 			}
 			if (course.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y))
 			{
-				initTableCourse(font, courseGraphic, courses);
+				//initTableCourse(font, courseGraphic, courses);
 				return "course";
 			}
 			if (scoreBoard.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
 				return "scoreboard";
 			}
 			if (attendanceList.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
-				return "attendancelist";
+				return "attendance";
+			}
+			if (lecturer.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+				initTableLecturer(font, accountGraphic, Acc);
+				return "lecturer";
 			}
 		}
-		
+
 		if (nowAdmin == "class") {
 			adminText.setString("");
-			
 			updateText(adminText, font, sf::Color::White, 432, nameOfClass[nameOfClass.size() - 1].getPosition().y + 60, 30);
-			if (importAClass.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {	
+			if (importAClass.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
 				adminEnter = "";
 				adminText.setString("|");
 				return "import a class";
@@ -144,12 +216,28 @@ string MenuOfAdmin::handleEvent(sf::Event event,string nowAdmin, ArrOfAccount Ac
 					return "view class";
 				}
 		}
-		
-		if (nowAdmin == "course") {
+
+		if (nowAdmin == "course options") {
+			if (create.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+				return "create course";
+			}
+			if (deleteS.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+				return "delete course";
+			}
+			if (add.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+				return "add course";
+			}
+			if (remove.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+				return "remove course";
+			}
+			if (edit.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+				return "edit course";
+			}
 			for (int i = 0; i < courseGraphic.size(); i++)
 			{
 				if (courseGraphic[i].ID.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
 					initTableCourse_Student(font, studentGraphic, courseGraphic[i].ID.getString(), Acc);
+					courseID = courseGraphic[i].ID.getString();
 					return "view student";
 				}
 			}
@@ -186,6 +274,45 @@ string MenuOfAdmin::handleEvent(sf::Event event,string nowAdmin, ArrOfAccount Ac
 			}
 		}
 
+		if (nowAdmin == "lecturer")
+		{
+			updateText(instruction, font, sf::Color::White, 408, 170, 30);
+			updateText(adminText, font, sf::Color::White, 408, 220, 30);
+			instruction.setString("");
+			adminText.setString("");
+			if (createLecturer.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+				instruction.setString("Enter information: ID,Last name,First name,Gender,DoB: ");
+				adminEnter = "";
+				adminText.setString("|");
+				cout << instruction.getString().toAnsiString() << endl;
+				return "create Lecturer";
+			}
+			if (updateLecturer.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+				instruction.setString("Enter lecturer ID you want to edit: ");
+				adminEnter = "";
+				adminText.setString("|");
+				return "update Lecturer";
+			}
+			if (deleteLecturer.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+				instruction.setString("Enter lecturer ID you want to remove: ");
+				adminEnter = "";
+				adminText.setString("|");
+				return "delete Lecturer";
+			}
+		}
+
+		if (nowAdmin == "view student") {
+			if (add.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y))
+			{
+				return "add st -> course";
+			}
+			if (remove.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+				return "remove st fr course";
+			}
+			if (addClass.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+				return "add a class";
+			}
+		}
 		return "anywhere";
 	}
 	if (event.type == sf::Event::TextEntered) {
@@ -262,10 +389,179 @@ string MenuOfAdmin::handleEvent(sf::Event event,string nowAdmin, ArrOfAccount Ac
 			adminText.setString(adminEnter + "|");
 			return "class to change";
 		}
+		if (nowAdmin == "course year") {
+			if (event.text.unicode == 13) {
+				adminText.setString(adminEnter);
+				return "course year done";
+			}
+			updateString(adminEnter, event);
+			adminText.setString(adminEnter + "|");
+			return "course year";
+		}
+		if (nowAdmin == "course term") {
+			if (event.text.unicode == 13) {
+				adminText.setString(adminEnter);
+				cout << adminEnter << endl;
+				return "course term done";
+			}
+			updateString(adminEnter, event);
+			adminText.setString(adminEnter + "|");
+			return "course term";
+		}
+		if (nowAdmin == "enter course") {
+			if (event.text.unicode == 13) {
+				adminText.setString(adminEnter);
+				cout << adminEnter << endl;
+				return "enter course success";
+			}
+			updateString(adminEnter, event);
+			adminText.setString(adminEnter + "|");
+			return "enter course";
+		}
+		if (nowAdmin == "create Lecturer")
+		{
+			if (event.text.unicode == 13) {
+				adminText.setString(adminEnter);
+				return "create Lecturer success";
+			}
+			updateString(adminEnter, event);
+			adminText.setString(adminEnter + "|");
+			return "create Lecturer";
+		}
+		if (nowAdmin == "update Lecturer")
+		{
+			if (event.text.unicode == 13) {
+				adminText.setString(adminEnter);
+				return "update Lecturer success";
+			}
+			updateString(adminEnter, event);
+			adminText.setString(adminEnter + "|");
+			return "update Lecturer";
+		}
+		if (nowAdmin == "delete Lecturer")
+		{
+			if (event.text.unicode == 13) {
+				adminText.setString(adminEnter);
+				return "delete Lecturer success";
+			}
+			updateString(adminEnter, event);
+			adminText.setString(adminEnter + "|");
+			return "delete Lecturer";
+		}
+		if (nowAdmin == "change Lecturer")
+		{
+			if (event.text.unicode == 13) {
+				adminText.setString(adminEnter);
+				return "edit Lecturer";
+			}
+			updateString(adminEnter, event);
+			adminText.setString(adminEnter + "|");
+			return "change Lecturer";
+		}
+		if (nowAdmin == "enter Lecturer inform")
+		{
+			if (event.text.unicode == 13) {
+				adminText.setString(adminEnter);
+				return "edit Lecturer done";
+			}
+			updateString(adminEnter, event);
+			adminText.setString(adminEnter + "|");
+			return "enter Lecturer inform";
+		}
+		if (nowAdmin == "remove course ID") {
+			if (event.text.unicode == 13) {
+				adminText.setString(adminEnter);
+				return "remove course done";
+			}
+			updateString(adminEnter, event);
+			adminText.setString(adminEnter + "|");
+			return "remove course ID";
+		}
+		if (nowAdmin == "edit course ID") {
+			if (event.text.unicode == 13) {
+				adminText.setString(adminEnter);
+				return "course ID done";
+			}
+			updateString(adminEnter, event);
+			adminText.setString(adminEnter + "|");
+			return "edit course ID";
+		}
+		if (nowAdmin == "edit course?") {
+			if (event.text.unicode == 13) {
+				adminText.setString(adminEnter);
+				return "course ? done";
+			}
+			updateString(adminEnter, event);
+			adminText.setString(adminEnter + "|");
+			return "edit course?";
+		}
+		if (nowAdmin == "course what?") {
+			if (event.text.unicode == 13) {
+				adminText.setString(adminEnter);
+				return "course what? done";
+			}
+			updateString(adminEnter, event);
+			adminText.setString(adminEnter + "|");
+			return "course what?";
+		}
+		if (nowAdmin == "+ st ID") {
+			if (event.text.unicode == 13) {
+				adminText.setString(adminEnter);
+				return "+ st ID done";
+			}
+			updateString(adminEnter, event);
+			adminText.setString(adminEnter + "|");
+			return "+ st ID";
+		}
+		if (nowAdmin == "- st ID") {
+			if (event.text.unicode == 13) {
+				adminText.setString(adminEnter);
+				return "- st ID done";
+			}
+			updateString(adminEnter, event);
+			adminText.setString(adminEnter + "|");
+			return "- st ID";
+		}
+		if (nowAdmin == "+ class") {
+			if (event.text.unicode == 13) {
+				adminText.setString(adminEnter);
+				return "+ class done";
+			}
+			updateString(adminEnter, event);
+			adminText.setString(adminEnter + "|");
+			return "+ class";
+		}
+		if (nowAdmin == "score course ID") {
+			if (event.text.unicode == 13) {
+				adminText.setString(adminEnter);
+				return "score done";
+			}
+			updateString(adminEnter, event);
+			adminText.setString(adminEnter + "|");
+			return "score course ID";
+		}
+		if (nowAdmin == "attend course ID") {
+			if (event.text.unicode == 13) {
+				adminText.setString(adminEnter);
+				return "attend done";
+			}
+			updateString(adminEnter, event);
+			adminText.setString(adminEnter + "|");
+			return "attend course ID";
+		}
 	}
 }
 
-void MenuOfAdmin::logic(string &nowAdmin,ArrayOfClass &Classes,ArrOfAccount &Acc, ArrayOfCourse course, vector<AccountGraphic>  &accountGraphic) {
+void MenuOfAdmin::logic(string &nowAdmin,vector<Time> &time, ArrayOfClass &Classes, ArrOfAccount &Acc, ArrayOfCourse &course,vector<ScoreBoard> scoreBoard,vector<AttendanceList> attendanceList, vector<AccountGraphic>  &accountGraphic,vector<CourseGraphic> &courseGraphic, vector<StudentGraphic> &studentGraphic , vector<ScoreGraphic> &scoreGraphic) {
+	if (nowAdmin == "class") {
+		adminEnter = "";
+		adminText.setString("");
+		adminText.setPosition(432, nameOfClass[nameOfClass.size() - 1].getPosition().y + 30 + 10);
+		add.setPosition(408, 100);
+		edit.setPosition(595, 100);
+		remove.setPosition(782, 100);
+		return;
+	}
 	if (nowAdmin == "import class success") {
 		Class C;
 		C.inputAClass(0, adminEnter, Acc, course);
@@ -300,7 +596,8 @@ void MenuOfAdmin::logic(string &nowAdmin,ArrayOfClass &Classes,ArrOfAccount &Acc
 		if (a[3][0] == 'M') gen = 0;
 		else gen = 1;
 		convertDateToPass(a[4], pass);
-		Acc.input(a[0], pass, 1, a[0], a[1], a[2], a[4], gen, classNow, "", course);
+		string cou = Acc.returnCourse(classNow);
+		Acc.input(a[0], pass, 1, a[0], a[1], a[2], a[4], gen, classNow,cou , course);
 		initTableClass(font, accountGraphic, classNow, Acc);
 		nowAdmin = "view class";
 		return;
@@ -375,6 +672,313 @@ void MenuOfAdmin::logic(string &nowAdmin,ArrayOfClass &Classes,ArrOfAccount &Acc
 		adminText.setString("");
 		instruction.setString("");
 		nowAdmin = "view class";
+		return;
+	}
+	if (nowAdmin == "course") {
+		edit.setPosition(deleteS.getPosition().x + 147 + 50,100);
+		add.setPosition(edit.getPosition().x + 127 + 50, 100);
+		remove.setPosition(add.getPosition().x + 127 + 50, 100);
+		instruction.setString("Enter year: ");
+		adminEnter = "";
+		adminText.setString("|");
+		adminText.setPosition(432, instruction.getPosition().y + 30 + 10);
+		nowAdmin = "course year";
+		return;
+	}
+	if (nowAdmin == "course year done") {
+		year = adminEnter;
+		adminEnter = "";
+		adminText.setString("|");
+		instruction.setString("Enter term: ");
+		nowAdmin = "course term";
+		return;
+	}
+	if (nowAdmin == "course term done") {
+		term = adminEnter[0] - '0';
+		cout << adminEnter[0] << endl;
+		cout << term << endl;
+		instruction.setString("Academic Year: " + year + ", term " + adminEnter);
+		adminEnter = "";
+		adminText.setString("");
+		initTableCourse(font, courseGraphic, course, year, term);
+		nowAdmin = "course options";
+		return;
+	}
+	if (nowAdmin == "create course") {
+		course.loadCourse(year, term);
+		Time t;
+		t.input(year, term);
+		time.push_back(t);
+		initTableCourse(font, courseGraphic, course, year, term);
+		Acc.updateCourse(course,year,term);
+		nowAdmin = "course options";
+		return;
+	}
+	if (nowAdmin == "delete course") {
+
+		course.deleteAll(year,term);
+
+		for (int i = 0 ; i< time.size(); i++)
+			if (time[i].getYear() == year && time[i].getTerm() == term) {
+				time.erase(time.begin() + i);
+				break;
+			}
+		year = "";
+		term = 0;
+		nowAdmin = "course";
+		return;
+	}
+	if (nowAdmin == "add course") {
+		adminEnter = "";
+		adminText.setString("|");
+		instruction.setString("Enter course (Course ID,Course Name,Lecture ID,Start Date,End Date,Day,Start,End,Room): ");
+		nowAdmin = "enter course";
+		return;
+	}
+	if (nowAdmin == "enter course success") {
+		if (adminEnter == "") {
+			adminText.setString("");
+			instruction.setString("");
+			nowAdmin = "course options";
+			return;
+		}
+		string s[9];
+		int j = 0;
+		for (int i = 0; i < adminEnter.length(); i++)
+		{
+			if (adminEnter[i] != ',') {
+				s[j] = s[j] + adminEnter[i];
+			}
+			else j++;
+		}
+		Account lecturer = Acc.getAccount(s[2]);
+		Acc.removeAccount(s[2]);
+		string lecturerName = lecturer.getLastName() + " " + lecturer.getFirstName();
+		Course C;
+		C.inputACourse(s[0], s[1], lecturerName, year, term, s[3], s[4], s[5], s[6], s[7], s[8]);
+		course.pushCourse(C);
+		lecturer.addCourse(C);
+		Acc.pushAccount(lecturer);
+		initTableCourse(font, courseGraphic, course, year, term);
+		nowAdmin = "course options";
+		return;
+	}
+	if (nowAdmin == "create Lecturer success") {
+		if (adminEnter == "") {
+			nowAdmin = "lecturer";
+			return;
+		}
+		string a[5];
+		for (int i = 0; i < 5; i++) a[i] = "";
+		int j = 0;
+		for (int i = 0; i < adminEnter.length(); i++) {
+			if (adminEnter[i] != ',') {
+				a[j] = a[j] + adminEnter[i];
+			}
+			else j++;
+		}
+		adminEnter = "";
+		adminText.setString("");
+		instruction.setString("");
+		string pass;
+		int gen;
+		if (a[3][0] == 'M') gen = 0;
+		else gen = 1;
+		convertDateToPass(a[4], pass);
+		Acc.input(a[0], pass, 2, a[0], a[1], a[2], a[4], gen, "", "", course);
+		initTableLecturer(font, accountGraphic, Acc);
+		nowAdmin = "lecturer";
+		return;
+	}
+	if (nowAdmin == "update Lecturer success") {
+		lecturerID = adminEnter;
+		instruction.setString("What information you want to edit?(Password/Last name/First name/DoB/Gender)");
+		adminText.setString("|");
+		adminEnter = "";
+		nowAdmin = "change Lecturer";
+		return;
+	}
+	if (nowAdmin == "delete Lecturer success")
+	{
+		Acc.removeAccount(adminEnter);
+		adminEnter = "";
+		adminText.setString("");
+		instruction.setString("");
+		nowAdmin = "lecturer";
+		initTableLecturer(font, accountGraphic, Acc);
+		return;
+	}
+	if (nowAdmin == "edit Lecturer")
+	{
+		whatToEdit = adminEnter;
+		adminText.setString("|");
+		instruction.setString("Enter information to change " + whatToEdit + " for " + lecturerID);
+		adminEnter = "";
+		nowAdmin = "enter Lecturer inform";
+		return;
+	}
+	if (nowAdmin == "edit Lecturer done") {
+		informEdit = adminEnter;
+		adminText.setString("");
+		instruction.setString("");
+		adminEnter = "";
+		nowAdmin = "lecturer";
+		Account acc = Acc.getAccount(lecturerID);
+		if (whatToEdit == "Password") {
+			acc.changePassword(informEdit);
+		}
+		if (whatToEdit == "Last name") {
+			acc.changeLastName(informEdit);
+		}
+		if (whatToEdit == "First name") {
+			acc.changeFirstName(informEdit);
+		}
+		if (whatToEdit == "Gender") {
+			acc.changeGender(informEdit);
+		}
+		if (whatToEdit == "DoB") {
+			acc.changeDoB(informEdit);
+		}
+		Acc.removeAccount(lecturerID);
+		Acc.pushAccount(acc);
+		initTableLecturer(font, accountGraphic, Acc);
+		return;
+	}
+	if (nowAdmin == "remove course") {
+		instruction.setString("Enter course ID: ");
+		adminEnter = "";
+		adminText.setString("|");
+		nowAdmin = "remove course ID";
+		return;
+	}
+	if (nowAdmin == "remove course done") {
+		Acc.removeCourseInAccount(adminEnter);
+		course.removeCourse(adminEnter);
+		initTableCourse(font, courseGraphic, course, year, term);
+		instruction.setString("");
+		adminText.setString("");
+		adminEnter = "";
+		nowAdmin = "course options";
+		return;
+	}
+
+	if (nowAdmin == "edit course") {
+		instruction.setString("Enter course ID to edit:");
+		adminEnter = "";
+		adminText.setString("|");
+		nowAdmin = "edit course ID";
+		return;
+	}
+	if (nowAdmin == "course ID done") {
+		courseID = adminEnter;
+		adminEnter = "";
+		instruction.setString("What do you want to edit (CourseName/Day/Start/End/Room):");
+		adminText.setString("|");
+		nowAdmin = "edit course?";
+		return;
+	}
+	if (nowAdmin == "course ? done") {
+		whatToEdit = adminEnter;
+		adminEnter = "";
+		instruction.setString("Enter information: ");
+		adminText.setString("|");
+		nowAdmin = "course what?";
+		return;
+	}
+	if (nowAdmin == "course what? done") {
+		informEdit = adminEnter;
+		instruction.setString("");
+		adminEnter = "";
+		adminText.setString("");
+		nowAdmin = "course options";
+		course.editCourse(courseID, whatToEdit, informEdit);
+		initTableCourse(font, courseGraphic, course, year, term);
+		return;
+	}
+	if (nowAdmin == "view student") {
+		add.setPosition(408, 100);
+		remove.setPosition(595, 100);
+		addClass.setPosition(782, 100);
+		instruction.setString("Course ID: " + courseID);
+	}
+	if (nowAdmin == "add st -> course") {
+		instruction.setString("Enter student ID: ");
+		adminEnter = "";
+		adminText.setString("|");
+		nowAdmin = "+ st ID";
+		return;
+	}
+	if (nowAdmin == "+ st ID done") {
+		instruction.setString("");
+		studentID = adminEnter;
+		Acc.addCourse(studentID, courseID,course);
+		adminText.setString("");
+		adminEnter = "";
+		initTableCourse_Student(font, studentGraphic, courseID, Acc);
+		nowAdmin = "view student";
+		return;
+	}
+	if (nowAdmin == "remove st fr course") {
+		instruction.setString("Enter student ID: ");
+		adminEnter = "";
+		adminText.setString("|");
+		nowAdmin = "- st ID";
+		return;
+	}
+	if (nowAdmin == "- st ID done") {
+		instruction.setString("");
+		studentID = adminEnter;
+		adminEnter = "";
+		adminText.setString("");
+		Acc.removeCourseInAccount(studentID, courseID);
+		initTableCourse_Student(font, studentGraphic, courseID, Acc);
+		nowAdmin = "view student";
+		return;
+	}
+	if (nowAdmin == "add a class") {
+		instruction.setString("Enter class: ");
+		adminEnter = "";
+		adminText.setString("|");
+		nowAdmin = "+ class";
+		return;
+	}
+	if (nowAdmin == "+ class done") {
+		instruction.setString("Course : " + courseID);
+		Acc.addCourseToClass(adminEnter, courseID, course);
+		adminText.setString("");
+		nowAdmin = "view student";
+		initTableCourse_Student(font, studentGraphic, courseID, Acc);
+		adminEnter = "";
+		return;
+	}
+	if (nowAdmin == "scoreboard") {
+		instruction.setString("Course ID: ");
+		adminEnter = "";
+		adminText.setString("|");
+		nowAdmin = "score course ID";
+		return;
+	}
+	if (nowAdmin == "attendance") {
+		instruction.setString("Course ID: ");
+		adminEnter = "";
+		adminText.setString("|");
+		nowAdmin = "attend course ID";
+		return;
+	}
+	if (nowAdmin == "score done") {
+		courseID = adminEnter;
+		initTableScore(font, scoreGraphic, scoreBoard, course, courseID);
+		if (scoreGraphic.size() <= 1) {
+			instruction.setString("Course ID: ");
+			adminEnter = "";
+			adminText.setString("|");
+			nowAdmin = "score course ID";
+			scoreGraphic.clear();
+			return;
+		}
+		instruction.setString("Course ID : " + courseID);
+		adminText.setString("");
+		nowAdmin = "scoreboard view";
 		return;
 	}
 }

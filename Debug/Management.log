@@ -1,62 +1,125 @@
 ﻿  MenuOfAdmin.cpp
-c:\users\asus\desktop\project\management\management\menuofadmin.cpp(76): warning C4018: '<': signed/unsigned mismatch
-c:\users\asus\desktop\project\management\management\menuofadmin.cpp(115): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+c:\users\asus\desktop\project\management\management\menuofadmin.cpp(109): warning C4018: '<': signed/unsigned mismatch
+c:\users\asus\desktop\project\management\management\menuofadmin.cpp(184): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-c:\users\asus\desktop\project\management\management\menuofadmin.cpp(118): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+c:\users\asus\desktop\project\management\management\menuofadmin.cpp(187): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-c:\users\asus\desktop\project\management\management\menuofadmin.cpp(123): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+c:\users\asus\desktop\project\management\management\menuofadmin.cpp(192): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-c:\users\asus\desktop\project\management\management\menuofadmin.cpp(126): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+c:\users\asus\desktop\project\management\management\menuofadmin.cpp(195): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-c:\users\asus\desktop\project\management\management\menuofadmin.cpp(135): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+c:\users\asus\desktop\project\management\management\menuofadmin.cpp(198): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-c:\users\asus\desktop\project\management\management\menuofadmin.cpp(140): warning C4018: '<': signed/unsigned mismatch
-c:\users\asus\desktop\project\management\management\menuofadmin.cpp(141): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+c:\users\asus\desktop\project\management\management\menuofadmin.cpp(207): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-c:\users\asus\desktop\project\management\management\menuofadmin.cpp(149): warning C4018: '<': signed/unsigned mismatch
-c:\users\asus\desktop\project\management\management\menuofadmin.cpp(151): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+c:\users\asus\desktop\project\management\management\menuofadmin.cpp(212): warning C4018: '<': signed/unsigned mismatch
+c:\users\asus\desktop\project\management\management\menuofadmin.cpp(213): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-c:\users\asus\desktop\project\management\management\menuofadmin.cpp(163): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+c:\users\asus\desktop\project\management\management\menuofadmin.cpp(221): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-c:\users\asus\desktop\project\management\management\menuofadmin.cpp(169): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+c:\users\asus\desktop\project\management\management\menuofadmin.cpp(224): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-c:\users\asus\desktop\project\management\management\menuofadmin.cpp(175): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+c:\users\asus\desktop\project\management\management\menuofadmin.cpp(227): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-c:\users\asus\desktop\project\management\management\menuofadmin.cpp(181): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+c:\users\asus\desktop\project\management\management\menuofadmin.cpp(230): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-c:\users\asus\desktop\project\management\management\menuofadmin.cpp(289): warning C4018: '<': signed/unsigned mismatch
-c:\users\asus\desktop\project\management\management\menuofadmin.cpp(266): warning C4715: 'MenuOfAdmin::handleEvent': not all control paths return a value
+c:\users\asus\desktop\project\management\management\menuofadmin.cpp(233): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\asus\desktop\project\management\management\menuofadmin.cpp(236): warning C4018: '<': signed/unsigned mismatch
+c:\users\asus\desktop\project\management\management\menuofadmin.cpp(238): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\asus\desktop\project\management\management\menuofadmin.cpp(251): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\asus\desktop\project\management\management\menuofadmin.cpp(257): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\asus\desktop\project\management\management\menuofadmin.cpp(263): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\asus\desktop\project\management\management\menuofadmin.cpp(269): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\asus\desktop\project\management\management\menuofadmin.cpp(283): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\asus\desktop\project\management\management\menuofadmin.cpp(290): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\asus\desktop\project\management\management\menuofadmin.cpp(296): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\asus\desktop\project\management\management\menuofadmin.cpp(305): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\asus\desktop\project\management\management\menuofadmin.cpp(309): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\asus\desktop\project\management\management\menuofadmin.cpp(312): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\asus\desktop\project\management\management\menuofadmin.cpp(585): warning C4018: '<': signed/unsigned mismatch
+c:\users\asus\desktop\project\management\management\menuofadmin.cpp(721): warning C4018: '<': signed/unsigned mismatch
+c:\users\asus\desktop\project\management\management\menuofadmin.cpp(747): warning C4018: '<': signed/unsigned mismatch
+c:\users\asus\desktop\project\management\management\menuofadmin.cpp(774): warning C4018: '<': signed/unsigned mismatch
+c:\users\asus\desktop\project\management\management\menuofadmin.cpp(553): warning C4715: 'MenuOfAdmin::handleEvent': not all control paths return a value
   Management.vcxproj -> C:\Users\asus\Desktop\project\Management\Debug\Management.exe

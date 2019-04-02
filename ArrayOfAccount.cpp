@@ -135,3 +135,61 @@ void ArrOfAccount::removeAccount(string ID) {
 			return;
 		}
 }
+
+void ArrOfAccount::updateCourse(ArrayOfCourse course, string year, int term) {
+	vector<Course> c;
+	c.clear();
+	c = course.returnCourses(year, term);
+	for (int i = 0; i < A.size(); i++) {
+		if (A[i].getRole() == 2) {
+			string name = A[i].getLastName() + " " + A[i].getFirstName();
+			for (int j = 0 ; j < c.size() ; j++)
+				if (c[j].getLecture() == name) {
+					A[i].addCourse(c[j]);
+				}
+		}
+	}
+}
+
+string ArrOfAccount::returnCourse(string className) {
+	Account a;
+	for (int i = 0; i < A.size(); i++) {
+		if (A[i].isMatchClass(className)) {
+			a = A[i];
+			break;
+		}
+	}
+	string cou;
+	return a.mergeCourses();
+}
+
+void ArrOfAccount::removeCourseInAccount(string courseID) {
+	for (int i = 0; i < A.size(); i++)
+	{
+		A[i].removeCourse(courseID);
+	}
+}
+
+void ArrOfAccount::addCourse(string ID, string courseName, ArrayOfCourse course) {
+	for (int i = 0 ; i < A.size() ;i++)
+		if (A[i].isMatchName(ID)) {
+			A[i].addCourse(courseName,course);
+			break;
+		}
+}
+
+void ArrOfAccount::removeCourseInAccount(string ID, string courseID) {
+	for (int i = 0 ; i < A.size() ; i++)
+		if (A[i].isMatchName(ID)) {
+			A[i].removeCourse(courseID);
+			break;
+		}
+}
+
+void ArrOfAccount::addCourseToClass(string cl, string courseID, ArrayOfCourse course) {
+	Course C = course.findACourse(courseID);
+	for (int i =0 ; i < A.size() ; i++)
+		if (A[i].isMatchClass(cl)) {
+			A[i].addCourse(C);
+		}
+}

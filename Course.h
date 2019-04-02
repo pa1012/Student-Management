@@ -33,4 +33,10 @@ public:
 	string getStart();
 	string getEnd();
 	string getRoom();
+	void updateCourseName(string s);
+	void updateDayOfWeek(string s);
+	void updateStart(string s);
+	void updateEnd(string s);
+	void updateRoom(string s);
+	void save(int i);
 };

@@ -8,6 +8,9 @@
 #include"MenuOfLecture.h"
 #include"MenuOfAdmin.h"
 #include"RenderTable.h"
+#include"Time.h"
+#include"ScoreBoard.h"
+#include"AttendanceList.h"
 
 enum AppState {
 	LOGIN, STUDENT, LECTURER, ADMIN
@@ -17,12 +20,21 @@ int main()
 {
 	sf::RenderWindow window(sf::VideoMode(1800, 800), "Student Management");
 
+	vector<Time> time;
+	loadTime(time);
+
 	ArrayOfCourse course;
 	course.loadCourse();
 
 	ArrOfAccount Acc;
 	Acc.loadAccount(course);
 
+	vector<ScoreBoard> scoreBoard;
+	vector<AttendanceList>  attendanceList;
+
+	loadfileScore(scoreBoard,course);
+	loadfileAttendance(attendanceList, course);
+	
 	ArrayOfClass Class;
 	Class.loadList();
 	Class.initData(Acc);
@@ -54,6 +66,7 @@ int main()
 	vector<AccountGraphic> accountGraphic;
 	vector<CourseGraphic> courseGraphic;
 	vector<StudentGraphic> studentGraphic;
+	vector<ScoreGraphic> scoreGraphic;
 
 	Account account;
 
@@ -136,7 +149,7 @@ int main()
 					nowStudent = menuStudent.handleEvent(event);
 				}
 				if (state == LECTURER) {
-					nowLecturer = menuLecturer.handleEvent(event);
+					nowLecturer = menuLecturer.handleEvent(event,nowLecturer,Acc,accountGraphic);
 				}
 				if (state == ADMIN) {
 					if (scroll == false && (event.type == sf::Event::MouseButtonPressed || event.type == sf::Event::TextEntered))
@@ -216,12 +229,12 @@ int main()
 			}
 			else 
 			if (state == LECTURER) {
-				//cout << nowLecturer << endl;
+				cout << nowLecturer << endl;
 			}
 			else 
 			if (state == ADMIN) {
 				cout << nowAdmin << endl;
-				menuAdmin.logic(nowAdmin, Class, Acc, course,accountGraphic);
+				menuAdmin.logic(nowAdmin,time, Class, Acc, course,scoreBoard,attendanceList,accountGraphic,courseGraphic,studentGraphic,scoreGraphic);
 			}
 		}
 		
@@ -245,14 +258,14 @@ int main()
 			window.setView(view);
 			screenControl.render(window,now);
 			window.draw(rect);
-			menuLecturer.render(window);
+			menuLecturer.render(window,nowLecturer,Acc,accountGraphic);
 			break;
 		case ADMIN:
 			window.setView(view);
 			screenControl.render(window,now);
 			window.draw(rect);
 			
-			menuAdmin.render(window,nowAdmin,Acc,Class,accountGraphic,courseGraphic,studentGraphic);
+			menuAdmin.render(window,nowAdmin,Acc,Class,accountGraphic,courseGraphic,studentGraphic,scoreGraphic);
 			break;
 		}
 
@@ -261,6 +274,6 @@ int main()
 	
 	Acc.saveAccount();
 	Class.save();
-	
+	course.saveCourse();
 	return 0;
 }

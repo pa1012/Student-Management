@@ -18,15 +18,16 @@ void MenuOfLecturer::initGraphics() {
 	
 }
 
-void MenuOfLecturer::render(sf::RenderWindow &window) {
+void MenuOfLecturer::render(sf::RenderWindow &window, string &nowLecturer, ArrOfAccount Acc, vector<AccountGraphic> &accountGraphic) {
 	window.draw(Course);
 	window.draw(AttendanceList);
 	window.draw(ScoreBoard);
 
 }
 
-string MenuOfLecturer::handleEvent(sf::Event event) {
+string MenuOfLecturer::handleEvent(sf::Event event, string &nowLecturer, ArrOfAccount Acc, vector<AccountGraphic> &accountGraphic) {
 	if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
+		if(nowLecturer == "anywhere")
 		if (Course.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y))
 		{
 			return "course";
@@ -39,4 +40,11 @@ string MenuOfLecturer::handleEvent(sf::Event event) {
 		}
 	}
 	return "anywhere";
+
+
+}
+
+void logic(string &nowAdmin, ArrOfAccount &Acc, vector<AccountGraphic> &accountGraphic)
+{
+
 }

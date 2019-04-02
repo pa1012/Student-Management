@@ -45,5 +45,8 @@ public:
 	void changeGender(string toChange);
 	void changeDoB(string toChange);
 	void changeClass(string toChange);
+	void addCourse(Course C);
+	void removeCourse(string courseID);
+	void addCourse(string courseName, ArrayOfCourse course);
 };
 

@@ -94,7 +94,7 @@ string Account::mergeCourses() {
 	{
 		s = s + courses[i].getID() + " ";
 	}
-	s.erase(s.end(), s.end());
+	//s.erase(s.end(), s.end());
 	return s;
 }
 
@@ -148,4 +148,23 @@ void Account::changeDoB(string toChange) {
 
 void Account::changeClass(string toChange) {
 	inClass = toChange;
+}
+
+void Account::addCourse(Course C) {
+	courses.push_back(C);
+}
+
+void Account::removeCourse(string courseID) {
+	for (int i = 0 ; i < courses.size() ; i++)
+		if (courses[i].isMatchedID(courseID)) {
+			courses.erase(courses.begin() + i);
+			return;
+		}
+}
+
+void Account::addCourse(string courseName, ArrayOfCourse course) {
+	for (int i = 0; i < courses.size(); i++)
+		if (courses[i].isMatchedID(courseName)) return;
+	Course C = course.findACourse(courseName);
+	courses.push_back(C);
 }
