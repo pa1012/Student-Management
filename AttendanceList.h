@@ -20,9 +20,13 @@ public:
 	void updateAttendance(string studentID, int week, Time time);
 	void initData(Time time);
 	void save();
+	void removeAttendance(string studentID);
+	void addAttendance(string studentID);
 };
 void loadfileAttendance(vector<AttendanceList> &attendanceList, ArrayOfCourse course);
 vector<Attendance> returnAttendance(vector<AttendanceList> attend, Account Acc);
 void updateAttendance(vector<AttendanceList> &attendanceList, string studentID,string courseID, int week, Time time);
 void initTableAttendance(vector<AttendanceList> &attendanceList,Time  time);
 void saveAttendance(vector<AttendanceList> &attendanceList);
+void removeAttendance(vector<AttendanceList> & attendanceList, Account account);
+void addToAttendance(vector <AttendanceList> & attendanceList, Account account);

@@ -124,7 +124,7 @@ int main()
 				{
 					if (!rect.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y))
 					{
-						now = screenControl.handleEvent(event, now, Acc,nowAdmin,nowStudent);
+						now = screenControl.handleEvent(event, now, Acc,nowAdmin,nowStudent,nowLecturer);
 					}
 				}
 				if ( event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
@@ -161,7 +161,7 @@ int main()
 				}
 				if (state == LECTURER) {
 					if (scroll == false && (event.type == sf::Event::MouseButtonPressed || event.type == sf::Event::TextEntered)) {
-						nowLecturer = menuLecturer.handleEvent(event, nowLecturer, Acc, accountGraphic);
+						nowLecturer = menuLecturer.handleEvent(event, nowLecturer,courseGraphic);
 					}
 					
 				}
@@ -246,6 +246,7 @@ int main()
 			else 
 			if (state == LECTURER) {
 				cout << nowLecturer << endl;
+				menuLecturer.logic(time, account, nowLecturer, course, attendanceList, scoreBoard, courseGraphic, scoreGraphic, attendanceGraphic, studentGraphic, Acc);
 			}
 			else 
 			if (state == ADMIN) {
@@ -274,13 +275,13 @@ int main()
 			window.setView(view);
 			screenControl.render(window,now);
 			window.draw(rect);
-			menuLecturer.render(window,nowLecturer,Acc,accountGraphic);
+			menuLecturer.render(window,nowLecturer, courseGraphic, scoreGraphic, attendanceGraphic, studentGraphic);
 			break;
 		case ADMIN:
 			window.setView(view);
 			screenControl.render(window,now);
 			window.draw(rect);
-			
+
 			menuAdmin.render(window,nowAdmin,Acc,Class,accountGraphic,courseGraphic,studentGraphic,scoreGraphic, attendanceGraphic);
 			break;
 		}

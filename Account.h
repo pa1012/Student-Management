@@ -44,7 +44,7 @@ public:
 	void changeFirstName(string toChange);
 	void changeGender(string toChange);
 	void changeDoB(string toChange);
-	void changeClass(string toChange);
+	void changeClass(string toChange,vector <Course> cou);
 	void addCourse(Course C);
 	void removeCourse(string courseID);
 	void addCourse(string courseName, ArrayOfCourse course);

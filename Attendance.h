@@ -9,7 +9,7 @@ using namespace std;
 class Attendance {
 private:
 	string ID;
-	char w[5];
+	string w[5];
 	string courseID;
 public:
 	void inputAttendance(string id, string week[5],string courseName);
@@ -26,4 +26,5 @@ public:
 	void update(int week,Time time);
 	void initData(Time time);
 	void save();
+	void init(string studentID, string courseID);
 };

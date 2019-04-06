@@ -4,6 +4,7 @@
 #include<vector>
 #include"Account.h"
 
+
 using namespace std;
 
 class ArrOfAccount {
@@ -29,6 +30,7 @@ public:
 	void removeAccount(string ID);
 	void updateCourse(ArrayOfCourse course, string year, int term);
 	string returnCourse(string className);
+	vector <Course> getCourse(string className);
 	void removeCourseInAccount(string courseID);
 	void addCourse(string ID, string courseName, ArrayOfCourse course);
 	void removeCourseInAccount(string ID, string courseID);

@@ -125,3 +125,37 @@ void AttendanceList::save() {
 
 	fout.close();
 }
+
+void removeAttendance(vector<AttendanceList> & attendanceList, Account account) {
+	vector <Course> course = account.returnCourses();
+	for (int i = 0; i < course.size(); i++)
+		for (int j = 0; j < attendanceList.size(); j++)
+			if (attendanceList[j].isMatchCourse(course[i].getID()))
+			{
+				attendanceList[j].removeAttendance(account.getID());
+			}
+}
+
+void AttendanceList::removeAttendance(string studentID) {
+	for (int i = 0; i < Arr.size(); i++)
+		if (Arr[i].getStudentID() == studentID) {
+			Arr.erase(Arr.begin() + i);
+			break;
+		}
+}
+
+void addToAttendance(vector <AttendanceList> & attendanceList, Account account) {
+	vector <Course> course = account.returnCourses();
+	for (int i = 0; i < course.size(); i++)
+		for (int j = 0; j < attendanceList.size();j++)
+			if (attendanceList[j].isMatchCourse(course[i].getID()))
+			{
+				attendanceList[j].addAttendance(account.getID());
+			}
+}
+
+void AttendanceList::addAttendance(string studentID) {
+	Attendance at;
+	at.init(studentID,courseName);
+	Arr.push_back(at);
+}

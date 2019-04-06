@@ -193,3 +193,14 @@ void ArrOfAccount::addCourseToClass(string cl, string courseID, ArrayOfCourse co
 			A[i].addCourse(C);
 		}
 }
+
+vector <Course> ArrOfAccount::getCourse(string className) {
+	Account a;
+	for (int i = 0; i < A.size(); i++) {
+		if (A[i].isMatchClass(className)) {
+			a = A[i];
+			break;
+		}
+	}
+	return a.returnCourses();
+}

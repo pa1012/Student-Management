@@ -68,24 +68,26 @@ string MenuOfStudent::handleEvent(sf::Event event,string nowStudent) {
 	
 }
 
-void MenuOfStudent::logic(Time time,Account&Acc,string & nowStudent,ArrayOfCourse course, vector<AttendanceList> & attendanceList,vector<ScoreBoard> score, vector<CourseGraphic> & courseGraphic, vector<ScoreGraphic> & scoreGraphic,vector<AttendanceGraphic> & attendanceGraphic)
+void MenuOfStudent::logic(Time time,Account&Acc,string & nowStudent,ArrayOfCourse &course, vector<AttendanceList> & attendanceList,vector<ScoreBoard> &score, vector<CourseGraphic> & courseGraphic, vector<ScoreGraphic> & scoreGraphic,vector<AttendanceGraphic> & attendanceGraphic)
 {
 	if (nowStudent == "schedule")
 	{
 
+		courseGraphic.clear();
 		initTableCourse(font, courseGraphic, Acc);
 		nowStudent = "schedule view";
 		return;
 	}
 	if (nowStudent == "score")
 	{
-		
+		scoreGraphic.clear();
 		initTableScore(font, scoreGraphic, score, Acc);
 		nowStudent = "score view";
 		return;
 	}
 	if (nowStudent == "check-in")
 	{
+		attendanceGraphic.clear();
 		initTableAttendance(font, attendanceGraphic, attendanceList, Acc);
 		instruction.setString("Enter courseID: ");
 		studentEnter = "";
@@ -93,6 +95,7 @@ void MenuOfStudent::logic(Time time,Account&Acc,string & nowStudent,ArrayOfCours
 		nowStudent = "courseID";
 		return;
 	}
+	
 	if (nowStudent == "courseID done")
 	{
 		courseID = studentEnter;
@@ -105,8 +108,7 @@ void MenuOfStudent::logic(Time time,Account&Acc,string & nowStudent,ArrayOfCours
 		}
 		string week = "";
 		convertIntToString(time.getWeek(),week);
-		instruction.setString("You checked in week" + week+ " of course " + courseID);
-		initTableAttendance(font, attendanceGraphic, attendanceList, Acc);
+		instruction.setString("You checked in week " + week+ " of course " + courseID);
 		studentEnter = "";
 		studentText.setString("");
 		updateAttendance(attendanceList, Acc.getID(), courseID, time.getWeek(),time);

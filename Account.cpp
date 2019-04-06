@@ -146,8 +146,10 @@ void Account::changeDoB(string toChange) {
 	doB = toChange;
 }
 
-void Account::changeClass(string toChange) {
+void Account::changeClass(string toChange, vector <Course> cou) {
 	inClass = toChange;
+	courses.clear();
+	courses = cou;
 }
 
 void Account::addCourse(Course C) {

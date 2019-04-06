@@ -9,3 +9,4 @@ using namespace std;
 void convertStringToInt(string c, int & a);
 void convertDateToPass(string date, string &pass);
 void convertIntToString(int n, string &number);
+void convertStringToFloat(float &n, string number);

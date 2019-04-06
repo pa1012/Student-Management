@@ -71,3 +71,18 @@ void Score::save() {
 	fout << inClass << '\n';
 	fout.close();
 }
+
+void Score::updateScore(string what, float grade) {
+	if (grade > 10 || grade < 0) return;
+	if (what == "Midterm") {
+		midterm = grade;
+	}
+	else 
+		if (what == "Lab") {
+			lab = grade;
+	}
+		else if (what == "Final") {
+			final = grade;
+		}
+		else bonus = grade;
+}

@@ -100,3 +100,53 @@ void ScoreBoard::save() {
 		scoreBoard[i].save();
 	fout.close();
 }
+
+void updateScore(vector<ScoreBoard> &score, string courseID, string studentID, string what, float grade) {
+	for (int i = 0 ; i < score.size();i++)
+		if (score[i].isMatchCourse(courseID)) {
+			score[i].updateScore(studentID, what, grade);
+			break;
+		}
+}
+
+void ScoreBoard::updateScore(string studentID, string what, float grade) {
+	for (int i = 0 ; i < scoreBoard.size();i++)
+		if (scoreBoard[i].isMatchID(studentID)) {
+			scoreBoard[i].updateScore(what, grade);
+			break;
+		}
+}
+
+void removeScore(vector<ScoreBoard> &scoreBoard, Account account) {
+	vector <Course> course = account.returnCourses();
+	for (int i = 0 ; i < course.size(); i++)
+		for (int j = 0 ; j < scoreBoard.size(); j++)
+			if (scoreBoard[j].isMatchCourse(course[i].getID()))
+			{
+				scoreBoard[j].removeScore(account.getID());
+			}
+}
+
+void ScoreBoard::removeScore(string studentID) {
+	for (int i = 0 ; i < scoreBoard.size(); i++)
+		if (scoreBoard[i].getStudentID() == studentID) {
+			scoreBoard.erase(scoreBoard.begin() + i);
+			break;
+		}
+}
+
+void addToScore(vector<ScoreBoard> &scoreBoard, Account account) {
+	vector <Course> course = account.returnCourses();
+	for (int i = 0; i < course.size(); i++)
+		for (int j = 0; j < scoreBoard.size(); j++)
+			if (scoreBoard[j].isMatchCourse(course[i].getID()))
+			{
+				scoreBoard[j].addScore(account.getID(),account.getinClass());
+			}
+}
+
+void ScoreBoard::addScore(string studentID, string inClass) {
+	Score sc;
+	sc.inputScore(studentID, 0, 0, 0, 0, inClass, courseName);
+	scoreBoard.push_back(sc);
+}

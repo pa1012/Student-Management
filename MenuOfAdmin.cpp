@@ -191,7 +191,6 @@ string MenuOfAdmin::handleEvent(sf::Event event, string nowAdmin, ArrOfAccount A
 			}
 			if (course.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y))
 			{
-				//initTableCourse(font, courseGraphic, courses);
 				return "course";
 			}
 			if (scoreBoard.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
@@ -201,6 +200,7 @@ string MenuOfAdmin::handleEvent(sf::Event event, string nowAdmin, ArrOfAccount A
 				return "attendance";
 			}
 			if (lecturer.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+				accountGraphic.clear();
 				initTableLecturer(font, accountGraphic, Acc);
 				return "lecturer";
 			}
@@ -557,7 +557,7 @@ string MenuOfAdmin::handleEvent(sf::Event event, string nowAdmin, ArrOfAccount A
 	}
 }
 
-void MenuOfAdmin::logic(string &nowAdmin,Time time, ArrayOfClass &Classes, ArrOfAccount &Acc, ArrayOfCourse &course,vector<ScoreBoard> scoreBoard,vector<AttendanceList> attendanceList, vector<AccountGraphic>  &accountGraphic,vector<CourseGraphic> &courseGraphic, vector<StudentGraphic> &studentGraphic , vector<ScoreGraphic> &scoreGraphic , vector<AttendanceGraphic> &attendanceGraphic) {
+void MenuOfAdmin::logic(string &nowAdmin,Time time, ArrayOfClass &Classes, ArrOfAccount &Acc, ArrayOfCourse &course,vector<ScoreBoard> &scoreBoard,vector<AttendanceList> &attendanceList, vector<AccountGraphic>  &accountGraphic,vector<CourseGraphic> &courseGraphic, vector<StudentGraphic> &studentGraphic , vector<ScoreGraphic> &scoreGraphic , vector<AttendanceGraphic> &attendanceGraphic) {
 	if (nowAdmin == "class") {
 		adminEnter = "";
 		adminText.setString("");
@@ -602,7 +602,11 @@ void MenuOfAdmin::logic(string &nowAdmin,Time time, ArrayOfClass &Classes, ArrOf
 		else gen = 1;
 		convertDateToPass(a[4], pass);
 		string cou = Acc.returnCourse(classNow);
-		Acc.input(a[0], pass, 1, a[0], a[1], a[2], a[4], gen, classNow,cou , course);
+		Account acc;
+		acc.createAccount(a[0], pass, 1, a[0], a[1], a[2], a[4], gen, classNow, cou, course);
+		Acc.pushAccount(acc);
+		addToScore(scoreBoard,acc);
+		addToAttendance(attendanceList,acc);
 		initTableClass(font, accountGraphic, classNow, Acc);
 		nowAdmin = "view class";
 		return;
@@ -647,15 +651,20 @@ void MenuOfAdmin::logic(string &nowAdmin,Time time, ArrayOfClass &Classes, ArrOf
 		}
 		Acc.removeAccount(studentID);
 		Acc.pushAccount(acc);
+		accountGraphic.clear();
 		initTableClass(font, accountGraphic, classNow, Acc);
 		return;
 	}
 	if (nowAdmin == "remove student done") {
+		Account a = Acc.getAccount(adminEnter);
 		Acc.removeAccount(adminEnter);
+		removeScore(scoreBoard, a);
+		removeAttendance(attendanceList, a);
 		adminEnter = "";
 		adminText.setString("");
 		instruction.setString("");
 		nowAdmin = "view class";
+		accountGraphic.clear();
 		initTableClass(font, accountGraphic, classNow, Acc);
 		return;
 	}
@@ -669,9 +678,18 @@ void MenuOfAdmin::logic(string &nowAdmin,Time time, ArrayOfClass &Classes, ArrOf
 	}
 	if (nowAdmin == "change class done") {
 		Account acc = Acc.getAccount(studentID);
-		acc.changeClass(adminEnter);
+		vector <Course> cou;
+		cou = Acc.getCourse(adminEnter);
+		acc.changeClass(adminEnter,cou);
+
 		Acc.removeAccount(studentID);
 		Acc.pushAccount(acc);
+		removeScore(scoreBoard, acc);
+		removeAttendance(attendanceList, acc);
+		
+		addToScore(scoreBoard, acc);
+		addToAttendance(attendanceList, acc);
+		accountGraphic.clear();
 		initTableClass(font, accountGraphic, classNow, Acc);
 		adminEnter = "";
 		adminText.setString("");
@@ -705,12 +723,14 @@ void MenuOfAdmin::logic(string &nowAdmin,Time time, ArrayOfClass &Classes, ArrOf
 		instruction.setString("Academic Year: " + year + ", term " + adminEnter);
 		adminEnter = "";
 		adminText.setString("");
+		courseGraphic.clear();
 		initTableCourse(font, courseGraphic, course, year, term);
 		nowAdmin = "course options";
 		return;
 	}
 	if (nowAdmin == "create course") {
 		course.loadCourse(year, term);
+		courseGraphic.clear();
 		initTableCourse(font, courseGraphic, course, year, term);
 		Acc.updateCourse(course,year,term);
 		nowAdmin = "course options";
@@ -755,6 +775,7 @@ void MenuOfAdmin::logic(string &nowAdmin,Time time, ArrayOfClass &Classes, ArrOf
 		course.pushCourse(C);
 		lecturer.addCourse(C);
 		Acc.pushAccount(lecturer);
+		courseGraphic.clear();
 		initTableCourse(font, courseGraphic, course, year, term);
 		nowAdmin = "course options";
 		return;
@@ -782,6 +803,7 @@ void MenuOfAdmin::logic(string &nowAdmin,Time time, ArrayOfClass &Classes, ArrOf
 		else gen = 1;
 		convertDateToPass(a[4], pass);
 		Acc.input(a[0], pass, 2, a[0], a[1], a[2], a[4], gen, "", "", course);
+		accountGraphic.clear();
 		initTableLecturer(font, accountGraphic, Acc);
 		nowAdmin = "lecturer";
 		return;
@@ -801,6 +823,7 @@ void MenuOfAdmin::logic(string &nowAdmin,Time time, ArrayOfClass &Classes, ArrOf
 		adminText.setString("");
 		instruction.setString("");
 		nowAdmin = "lecturer";
+		accountGraphic.clear();
 		initTableLecturer(font, accountGraphic, Acc);
 		return;
 	}
@@ -837,6 +860,7 @@ void MenuOfAdmin::logic(string &nowAdmin,Time time, ArrayOfClass &Classes, ArrOf
 		}
 		Acc.removeAccount(lecturerID);
 		Acc.pushAccount(acc);
+		accountGraphic.clear();
 		initTableLecturer(font, accountGraphic, Acc);
 		return;
 	}
@@ -850,6 +874,7 @@ void MenuOfAdmin::logic(string &nowAdmin,Time time, ArrayOfClass &Classes, ArrOf
 	if (nowAdmin == "remove course done") {
 		Acc.removeCourseInAccount(adminEnter);
 		course.removeCourse(adminEnter);
+		courseGraphic.clear();
 		initTableCourse(font, courseGraphic, course, year, term);
 		instruction.setString("");
 		adminText.setString("");
@@ -888,6 +913,7 @@ void MenuOfAdmin::logic(string &nowAdmin,Time time, ArrayOfClass &Classes, ArrOf
 		adminText.setString("");
 		nowAdmin = "course options";
 		course.editCourse(courseID, whatToEdit, informEdit);
+		courseGraphic.clear();
 		initTableCourse(font, courseGraphic, course, year, term);
 		return;
 	}
@@ -910,6 +936,7 @@ void MenuOfAdmin::logic(string &nowAdmin,Time time, ArrayOfClass &Classes, ArrOf
 		Acc.addCourse(studentID, courseID,course);
 		adminText.setString("");
 		adminEnter = "";
+		studentGraphic.clear();
 		initTableCourse_Student(font, studentGraphic, courseID, Acc);
 		nowAdmin = "view student";
 		return;
@@ -927,6 +954,7 @@ void MenuOfAdmin::logic(string &nowAdmin,Time time, ArrayOfClass &Classes, ArrOf
 		adminEnter = "";
 		adminText.setString("");
 		Acc.removeCourseInAccount(studentID, courseID);
+		studentGraphic.clear();
 		initTableCourse_Student(font, studentGraphic, courseID, Acc);
 		nowAdmin = "view student";
 		return;
@@ -943,6 +971,7 @@ void MenuOfAdmin::logic(string &nowAdmin,Time time, ArrayOfClass &Classes, ArrOf
 		Acc.addCourseToClass(adminEnter, courseID, course);
 		adminText.setString("");
 		nowAdmin = "view student";
+		studentGraphic.clear();
 		initTableCourse_Student(font, studentGraphic, courseID, Acc);
 		adminEnter = "";
 		return;
@@ -953,6 +982,7 @@ void MenuOfAdmin::logic(string &nowAdmin,Time time, ArrayOfClass &Classes, ArrOf
 		adminText.setString("|");
 		nowAdmin = "score course ID";
 		scoreGraphic.clear();
+		courseID = "";
 		return;
 	}
 	if (nowAdmin == "attendance") {
@@ -960,10 +990,13 @@ void MenuOfAdmin::logic(string &nowAdmin,Time time, ArrayOfClass &Classes, ArrOf
 		adminEnter = "";
 		adminText.setString("|");
 		nowAdmin = "attend course ID";
+		attendanceGraphic.clear();
+		courseID = "";
 		return;
 	}
 	if (nowAdmin == "score done") {
 		courseID = adminEnter;
+		scoreGraphic.clear();
 		scoreGraphic.clear();
 		initTableScore(font, scoreGraphic, scoreBoard, course, courseID);
 		if (scoreGraphic.size() <= 1) {

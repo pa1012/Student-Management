@@ -493,7 +493,7 @@ void initTableScore(sf::Font & font, vector<ScoreGraphic> &A, vector<ScoreBoard>
 		n++;
 		A.push_back(sg);
 	}
-
+	return;
 }
 void renderTableScore(sf::RenderWindow &window, vector<ScoreGraphic>  A) {
 	for (int i = 0; i < A.size(); i++)
@@ -597,7 +597,9 @@ void initTableAttendance(sf::Font & font, vector <AttendanceGraphic> & A, vector
 		updateText(ag.w[3], font, sf::Color::White, 825, posY, 15);
 		updateText(ag.w[4], font, sf::Color::White, 910, posY, 15);
 		A.push_back(ag);
+		n++;
 	}
+	return;
 }
 void renderTableAttendance(sf::RenderWindow & window, vector<AttendanceGraphic> A) {
 	for (int i = 0; i < A.size(); i++) {
@@ -647,5 +649,6 @@ void initTableAttendance(sf::Font & font, vector<AttendanceGraphic> &A, vector<A
 		updateText(ag.w[3], font, sf::Color::White, 825, posY, 15);
 		updateText(ag.w[4], font, sf::Color::White, 910, posY, 15);
 		A.push_back(ag);
+		n++;
 	}
 }

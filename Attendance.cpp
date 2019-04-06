@@ -3,7 +3,7 @@
 void Attendance::inputAttendance(string id, string week[5], string courseName) {
 	ID = id;
 	for (int i = 0; i < 5; i++)
-		w[i] = week[i][0];
+		w[i] = week[i];
 	courseID = courseName;
 }
 void Attendance::printOut() {
@@ -19,29 +19,20 @@ string Attendance::getStudentID() {
 	return ID;
 }
 string Attendance::getWeek1() {
-	string s;
-	s = w[0];
-	return s;
+	
+	return w[0];
 }
 string Attendance::getWeek2() {
-	string s;
-	s = w[1];
-	return s;
+	return w[1];
 }
 string Attendance::getWeek3() {
-	string s;
-	s = w[2];
-	return s;
+	return w[2];
 }
 string Attendance::getWeek4() {
-	string s;
-	s = w[3];
-	return s;
+	return w[3];
 }
 string Attendance::getWeek5() {
-	string s;
-	s = w[4];
-	return s;
+	return w[4];
 }
 string Attendance::getCourseID() {
 	return courseID;
@@ -52,14 +43,14 @@ bool Attendance::isMatchStudentID(string stID) {
 
 void Attendance::update(int week ,Time time) {
 	if (time.getWeek() == week )
-		w[week - 1] = 'X';
+		w[week - 1] = "X";
 }
 
 void Attendance::initData(Time time) {
 	int week = time.getWeek()-1;
 	for(int i=0; i<week; i++)
-		if (w[i] != 'X') {
-			w[i] = 'A';
+		if (w[i] != "X") {
+			w[i] = "A";
 		}
 }
 
@@ -69,4 +60,10 @@ void Attendance::save() {
 	fout.open(fileName, ios::app);
 	fout << ID << ',' << w[0] << ',' << w[1] << ',' << w[2] << ',' << w[3] << ',' << w[4] << endl;
 	fout.close();
+}
+
+void Attendance::init(string std, string course) {
+	ID = std;
+	courseID = course;
+	for (int i = 0; i < 5; i++) w[i] = "";
 }

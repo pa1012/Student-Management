@@ -40,7 +40,7 @@ void renderTableClass(sf::RenderWindow &window, vector<AccountGraphic> A);
 void initTableClass(sf::Font & font, vector<AccountGraphic> &A, string className, ArrOfAccount Acc);
 
 void renderTableCourse(sf::RenderWindow &window, vector<CourseGraphic> A);
-void initTableCourse(sf::Font & font, vector<CourseGraphic> &A, ArrayOfCourse Arr, string year, int term); \
+void initTableCourse(sf::Font & font, vector<CourseGraphic> &A, ArrayOfCourse Arr, string year, int term); //
 void initTableCourse(sf::Font & font, vector<CourseGraphic> &A, ArrayOfCourse Arr);
 void initTableCourse(sf::Font & font, vector<CourseGraphic> &A, Account Acc);
 
