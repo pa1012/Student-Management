@@ -8,12 +8,13 @@ void Class::inputAClass(int n, string c, ArrOfAccount &Acc,ArrayOfCourse C) {
 
 void Class::loadStudents(ArrOfAccount &Acc,ArrayOfCourse C) {
 	stringstream str;
-	str << "Data/" << name << "-Students.csv";
+	str << "import/" << name << "-Students.csv";
 	string fileName = str.str();
 
 	ifstream fin;
 	
 	fin.open(fileName.c_str());
+	if (fin.fail()) return;
 	string no, id, lastName, firstName, gender, date;
 	
 	while (!fin.eof())

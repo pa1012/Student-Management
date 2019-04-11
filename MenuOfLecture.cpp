@@ -7,7 +7,8 @@ void MenuOfLecturer::initGraphics() {
 	loadFont("VNI-Avo.TTF", font);
 	loadTexture("view.png", viewTexture);
 	loadTexture("edit.png", editTexture);
-	
+	loadTexture("import.png", importTexture);
+
 	course.setTexture(CourseTexture);
 	course.setPosition(40, 224);
 
@@ -20,8 +21,14 @@ void MenuOfLecturer::initGraphics() {
 	viewStudent.setTexture(viewTexture);
 	viewStudent.setPosition(408, 100);
 
-	updateText(instruction, font, sf::Color::White, 408, 100, 30);
-	updateText(LecturerText, font, sf::Color::White, 408, 140, 30);
+	editScore.setTexture(editTexture);
+	editScore.setPosition(408, 100);
+
+	importScore.setTexture(importTexture);
+	importScore.setPosition(588, 100);
+
+	updateText(instruction, font, sf::Color::White, 408, 170, 30);
+	updateText(LecturerText, font, sf::Color::White, 408, 220, 30);
 
 }
 
@@ -41,10 +48,12 @@ void MenuOfLecturer::render(sf::RenderWindow &window, string nowLecturer, vector
 		renderTableCourse_Student(window, studentGraphic);
 		return;
 	}
-	if (nowLecturer == "score view" || nowLecturer == "score" || nowLecturer == "scorecourseID" || nowLecturer == "scorestudentID" || nowLecturer == "what" || nowLecturer == "grade") {
+	if (nowLecturer == "score view" || nowLecturer == "score" || nowLecturer == "scorecourseID" || nowLecturer == "scorestudentID" || nowLecturer == "what" || nowLecturer == "grade" || nowLecturer == "import score") {
 		window.draw(instruction);
 		window.draw(LecturerText);
 		renderTableScore(window, scoreGraphic);
+		window.draw(editScore);
+		window.draw(importScore);
 		return;
 	}
 	if (nowLecturer == "attendancelist view" || nowLecturer == "attendancelist" || nowLecturer == "courseID" || nowLecturer == "studentID") {
@@ -74,6 +83,17 @@ string MenuOfLecturer::handleEvent(sf::Event event, string &nowLecturer, vector<
 					courseID = courseGraphic[i].ID.getString();
 					return "student";
 				}
+			}
+		}
+		if (nowLecturer == "score view") {
+			if (importScore.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+				return "import score";
+			}
+			if (editScore.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+				instruction.setString("Enter studentID: ");
+				LecturerEnter = "";
+				LecturerText.setString("|");
+				return "scorestudentID";
 			}
 		}
 		return "anywhere";
@@ -182,10 +202,14 @@ void MenuOfLecturer::logic(Time time, Account&Acc, string & nowLecturer, ArrayOf
 		courseID = LecturerEnter;
 		scoreGraphic.clear();
 		initTableScore(font, scoreGraphic, score, course, courseID); //
-		instruction.setString("Enter studentID: ");
+		instruction.setString("");
 		LecturerEnter = "";
-		LecturerText.setString("|");
-		nowLecturer = "scorestudentID";
+		LecturerText.setString("");
+		nowLecturer = "score view";
+		return;
+	}
+	if (nowLecturer == "scorestudentID") {
+		instruction.setString("Enter studentID: ");
 		return;
 	}
 	if (nowLecturer == "scorestudentID done")
@@ -276,5 +300,12 @@ void MenuOfLecturer::logic(Time time, Account&Acc, string & nowLecturer, ArrayOf
 		attendanceGraphic.clear();
 		initTableAttendance(font, attendanceGraphic, attendanceList, course, courseID); //
 		nowLecturer = "studentID";
+	}
+	if (nowLecturer == "import score") {
+		loadfileScore(score, courseID);
+		scoreGraphic.clear();
+		initTableScore(font, scoreGraphic,score,course,courseID);
+		nowLecturer = "score view";
+		return;
 	}
 }

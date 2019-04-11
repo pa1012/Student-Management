@@ -12,8 +12,8 @@ using namespace std;
 
 class MenuOfAdmin {
 private:
-	sf::Texture classTexture, courseTexture, scoreBoardTexture, attendanceListTexture, importAClassTexture, addTexture, editTexture, removeTexture, changeClassTexture, createTexture, deleteTexture, viewTexture, updateTexture, lecturerTexture,addClassTexture;
-	sf::Sprite classes, course, scoreBoard, attendanceList, importAClass, add, edit, remove, changeClass, create, deleteS, view, update, lecturer, createLecturer, updateLecturer, deleteLecturer, viewLecturer,addClass;
+	sf::Texture classTexture, courseTexture, scoreBoardTexture, attendanceListTexture, importAClassTexture, addTexture, editTexture, removeTexture, changeClassTexture, createTexture, deleteTexture, viewTexture, updateTexture, lecturerTexture,addClassTexture,exportTexture;
+	sf::Sprite classes, course, scoreBoard, attendanceList, importAClass, add, edit, remove, changeClass, create, deleteS, view, update, lecturer, createLecturer, updateLecturer, deleteLecturer, viewLecturer,addClass,exportFile;
 	vector <sf::Text> nameOfClass;
 	sf::Font font;
 	string nameAddClass;

@@ -26,5 +26,7 @@ public:
 	void update(int week,Time time);
 	void initData(Time time);
 	void save();
+	void save0();
 	void init(string studentID, string courseID);
+	
 };

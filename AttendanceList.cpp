@@ -21,7 +21,7 @@ void AttendanceList::loadAttendance() {
 		Attendance a;
 		if (id != "") {
 			a.inputAttendance(id, week,courseName);
-			Arr.push_back(a);
+			if (!isExisted(id))Arr.push_back(a);
 			a.clear();
 		}
 	}
@@ -118,9 +118,28 @@ void AttendanceList::save() {
 	string fileName = "Data/attendance/" + courseName + ".csv";
 
 	fout.open(fileName);
+
+	if (fout.fail()) return;
+
 	fout << "StudentID,Week 1,Week 2,Week 3,Week 4,Week 5" << endl;
 	for (int i = 0; i < Arr.size(); i++) {
 		Arr[i].save();
+	}
+
+	fout.close();
+}
+
+void AttendanceList::save0() {
+	ofstream fout;
+	string fileName = "export/attendance/" + courseName + ".csv";
+
+	fout.open(fileName);
+
+	if (fout.fail()) return;
+
+	fout << "StudentID,Week 1,Week 2,Week 3,Week 4,Week 5" << endl;
+	for (int i = 0; i < Arr.size(); i++) {
+		Arr[i].save0();
 	}
 
 	fout.close();
@@ -144,20 +163,23 @@ void AttendanceList::removeAttendance(string studentID) {
 		}
 }
 
-void addToAttendance(vector <AttendanceList> & attendanceList, Account account) {
+void addToAttendance(vector <AttendanceList> & attendanceList, Account account,Time time) {
 	vector <Course> course = account.returnCourses();
 	for (int i = 0; i < course.size(); i++)
 		for (int j = 0; j < attendanceList.size();j++)
 			if (attendanceList[j].isMatchCourse(course[i].getID()))
 			{
-				attendanceList[j].addAttendance(account.getID());
+				attendanceList[j].addAttendance(account.getID(),time);
 			}
 }
 
-void AttendanceList::addAttendance(string studentID) {
+void AttendanceList::addAttendance(string studentID,Time time) {
 	Attendance at;
-	at.init(studentID,courseName);
-	Arr.push_back(at);
+	string w[5];
+	for (int i = 0; i < 5; i++) w[i] = "";
+	for (int i = 0; i < time.getWeek() - 1; i++) w[i] = "A";
+	at.inputAttendance(studentID, w, courseName);
+	if (!isExisted(studentID)) Arr.push_back(at);
 }
 
 void removeAttendance(vector<AttendanceList> &attendanceList, Account account, string courseID) {
@@ -167,10 +189,47 @@ void removeAttendance(vector<AttendanceList> &attendanceList, Account account, s
 			attendanceList[j].removeAttendance(account.getID());
 		}
 }
-void addToAttendance(vector<AttendanceList> &attendanceList, Account account, string courseID) {
+void addToAttendance(vector<AttendanceList> &attendanceList, Account account, string courseID,Time time) {
 	for (int j = 0; j < attendanceList.size(); j++)
 		if (attendanceList[j].isMatchCourse(courseID))
 		{
-			attendanceList[j].addAttendance(account.getID());
+			attendanceList[j].addAttendance(account.getID(),time);
 		}
+}
+
+void addClassToAttendance(vector<AttendanceList> &attendanceList, string inclass, string courseID, ArrOfAccount Acc,Time time) {
+	vector<Account> acc;
+	acc = Acc.returnClass(inclass);
+	for (int i = 0 ; i < attendanceList.size(); i++)
+		if (attendanceList[i].isMatchCourse(courseID)) {
+			attendanceList[i].addClass(acc,time,courseID);
+			break;
+		}
+}
+
+void AttendanceList::addClass(vector<Account> acc,Time time,string courseID) {
+	
+	string w[5];
+	//for (int i = 0; i < 5; i++) w[i] = "";
+	int week = time.getWeek();
+	for (int i = 0; i < week - 1; i++) w[i] = "A";
+	for (int i = 0; i < acc.size(); i++) {
+		Attendance a;
+		a.inputAttendance(acc[i].getID(), w, courseID);
+		if (!isExisted(acc[i].getID())) Arr.push_back(a);
+	}
+}
+
+bool AttendanceList::isExisted(string studentID) {
+	for (int i = 0; i < Arr.size(); i++)
+		if (Arr[i].getStudentID() == studentID) return true;
+	return false;
+}
+
+void exportAttendance(vector<AttendanceList> &attendanceList,string courseID) {
+	for (int i = 0; i < attendanceList.size(); i++) 
+	if (attendanceList[i].isMatchCourse(courseID)){
+		attendanceList[i].save0();
+		break;
+	}
 }

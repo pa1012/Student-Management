@@ -7,6 +7,47 @@ void ScoreBoard::printOut() {
 	}
 }
 
+void ScoreBoard::push(Score s) {
+	scoreBoard.push_back(s);
+}
+void loadfileScore(vector<ScoreBoard> &score, string courseID) {		
+	ifstream fin;
+	string nameFile = "import/" + courseID + ".csv";
+	fin.open(nameFile);
+	if (fin.fail()) return;
+	for (int i = 0; i < score.size(); i++)
+		if (score[i].isMatchCourse(courseID)) {
+			score.erase(score.begin() + i);
+			break;
+		}
+	string id, inCl;
+	float mid, lb, fi, bo;
+	fin.ignore(1000, '\n');
+	ScoreBoard Sc;
+	Sc.clear();
+	Sc.inputCourseName(courseID);
+	while (!fin.eof())
+	{
+		getline(fin, id, ',');
+		fin >> mid;
+		fin.ignore(10, ',');
+		fin >> lb;
+		fin.ignore(10, ',');
+		fin >> fi;
+		fin.ignore(10, ',');
+		fin >> bo;
+		fin.ignore(10, ',');
+		getline(fin, inCl, '\n');
+		Score a;
+		if (id != "") {
+			a.inputScore(id, mid, lb, fi, bo, inCl, courseID);
+			if (!Sc.isExisted(id)) Sc.push(a);
+			a.clear();
+		}
+	}
+	score.push_back(Sc);
+	fin.close();
+}
 void ScoreBoard::loadScore()
 {
 	ifstream fin;
@@ -30,7 +71,7 @@ void ScoreBoard::loadScore()
 		Score a;
 		if (id != "") {
 			a.inputScore(id, mid, lb, fi,bo, inCl,courseName);
-			scoreBoard.push_back(a);
+			if (!isExisted(id))scoreBoard.push_back(a);
 			a.clear();
 		}
 	}
@@ -148,7 +189,7 @@ void addToScore(vector<ScoreBoard> &scoreBoard, Account account) {
 void ScoreBoard::addScore(string studentID, string inClass) {
 	Score sc;
 	sc.inputScore(studentID, 0, 0, 0, 0, inClass, courseName);
-	scoreBoard.push_back(sc);
+	if (!isExisted(studentID))scoreBoard.push_back(sc);
 }
 
 void removeScore(vector<ScoreBoard> &scoreBoard, Account account, string courseID) {
@@ -164,4 +205,47 @@ void addToScore(vector<ScoreBoard> &scoreBoard, Account account, string courseID
 		{
 			scoreBoard[j].addScore(account.getID(), account.getinClass());
 		}
+}
+
+void addClassToScore(vector<ScoreBoard> &scoreBoard, string inClass, string courseID, ArrOfAccount Acc) {
+	vector<Account> acc;
+	acc = Acc.returnClass(inClass);
+	for (int i = 0; i < scoreBoard.size(); i++)
+		if (scoreBoard[i].isMatchCourse(courseID)) {
+			scoreBoard[i].addClass(acc, courseID);
+			break;
+		}
+}
+
+void ScoreBoard::addClass(vector<Account> acc, string courseID) {
+	for (int i = 0; i < acc.size(); i++) {
+		Score s;
+		s.inputScore(acc[i].getID(), 0, 0, 0, 0, acc[i].getinClass(), courseID);
+		if (!isExisted(acc[i].getID())) scoreBoard.push_back(s);
+	}
+}
+
+bool ScoreBoard::isExisted(string studentID) {
+	for (int i = 0; i < scoreBoard.size(); i++)
+		if (scoreBoard[i].getStudentID() == studentID) return true;
+	return false;
+}
+
+void exportScoreBoard(vector<ScoreBoard> scoreboard, string courseID) {
+	for (int i = 0; i < scoreboard.size(); i++)
+		if (scoreboard[i].isMatchCourse(courseID)) {
+			scoreboard[i].save0();
+			break;
+		}
+
+}
+void ScoreBoard::save0() {
+	ofstream fout;
+	string fileName;
+	fileName = "export/score/" + courseName + ".csv";
+	fout.open(fileName);
+	fout << "StudentID,Midterm,Lab,Final,Bonus,Class" << endl;
+	for (int i = 0; i < scoreBoard.size(); i++)
+		scoreBoard[i].save0();
+	fout.close();
 }

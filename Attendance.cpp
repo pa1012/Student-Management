@@ -62,8 +62,17 @@ void Attendance::save() {
 	fout.close();
 }
 
+void Attendance::save0() {
+	ofstream fout;
+	string fileName = "export/attendance/" + courseID + ".csv";
+	fout.open(fileName, ios::app);
+	fout << ID << ',' << w[0] << ',' << w[1] << ',' << w[2] << ',' << w[3] << ',' << w[4] << endl;
+	fout.close();
+}
+
 void Attendance::init(string std, string course) {
 	ID = std;
 	courseID = course;
 	for (int i = 0; i < 5; i++) w[i] = "";
 }
+

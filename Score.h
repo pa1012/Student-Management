@@ -31,5 +31,6 @@ public:
 	string getCourseID();
 	bool isMatchID(string ID);
 	void save();
+	void save0();
 	void updateScore(string what, float grade);
 };

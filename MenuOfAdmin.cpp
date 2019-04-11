@@ -17,6 +17,10 @@ void MenuOfAdmin::initGraphics(ArrayOfClass Classes) {
 	loadTexture("update.png", updateTexture);
 	loadTexture("lecturer.png", lecturerTexture);
 	loadTexture("addClass.png", addClassTexture);
+	loadTexture("export.png", exportTexture);
+
+	exportFile.setTexture(exportTexture);
+	exportFile.setPosition(408, 100);
 
 	addClass.setTexture(addClassTexture);
 
@@ -175,11 +179,13 @@ void MenuOfAdmin::render(sf::RenderWindow &window, string nowAdmin, ArrOfAccount
 		window.draw(instruction);
 		window.draw(adminText);
 		renderTableScore(window, scoreGraphic);
+		if (nowAdmin == "scoreboard view") window.draw(exportFile);
 	}
 	if (nowAdmin == "attendance" || nowAdmin == "attend course ID" || nowAdmin == "attend view") {
 		window.draw(instruction);
 		window.draw(adminText);
 		renderTableAttendance(window, attendanceGraphic);
+		if (nowAdmin == "attend view") window.draw(exportFile);
 	}
 }
 
@@ -203,6 +209,19 @@ string MenuOfAdmin::handleEvent(sf::Event event, string nowAdmin, ArrOfAccount A
 				accountGraphic.clear();
 				initTableLecturer(font, accountGraphic, Acc);
 				return "lecturer";
+			}
+			
+		}
+		
+		if (nowAdmin == "scoreboard view") {
+			if (exportFile.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+				return"export score";
+			}
+		}
+
+		if (nowAdmin == "attend view") {
+			if (exportFile.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+				return"export attend";
 			}
 		}
 
@@ -606,7 +625,7 @@ void MenuOfAdmin::logic(string &nowAdmin,Time time, ArrayOfClass &Classes, ArrOf
 		acc.createAccount(a[0], pass, 1, a[0], a[1], a[2], a[4], gen, classNow, cou, course);
 		Acc.pushAccount(acc);
 		addToScore(scoreBoard,acc);
-		addToAttendance(attendanceList,acc);
+		addToAttendance(attendanceList,acc,time);
 		initTableClass(font, accountGraphic, classNow, Acc);
 		nowAdmin = "view class";
 		return;
@@ -688,7 +707,7 @@ void MenuOfAdmin::logic(string &nowAdmin,Time time, ArrayOfClass &Classes, ArrOf
 		removeAttendance(attendanceList, acc);
 		
 		addToScore(scoreBoard, acc);
-		addToAttendance(attendanceList, acc);
+		addToAttendance(attendanceList, acc,time);
 		accountGraphic.clear();
 		initTableClass(font, accountGraphic, classNow, Acc);
 		adminEnter = "";
@@ -938,7 +957,7 @@ void MenuOfAdmin::logic(string &nowAdmin,Time time, ArrayOfClass &Classes, ArrOf
 		Account a;
 		a = Acc.getAccount(studentID);
 		addToScore(scoreBoard, a, courseID);
-		addToAttendance(attendanceList, a, courseID);
+		addToAttendance(attendanceList, a, courseID,time);
 
 		adminText.setString("");
 		adminEnter = "";
@@ -979,7 +998,8 @@ void MenuOfAdmin::logic(string &nowAdmin,Time time, ArrayOfClass &Classes, ArrOf
 	if (nowAdmin == "+ class done") {
 		instruction.setString("Course : " + courseID);
 		Acc.addCourseToClass(adminEnter, courseID, course);
-		//write down here
+		addClassToAttendance(attendanceList, adminEnter, courseID,Acc,time);
+		addClassToScore(scoreBoard, adminEnter, courseID,Acc);
 		adminText.setString("");
 		nowAdmin = "view student";
 		studentGraphic.clear();
@@ -1037,6 +1057,17 @@ void MenuOfAdmin::logic(string &nowAdmin,Time time, ArrayOfClass &Classes, ArrOf
 		}
 		instruction.setString("Course ID : " + courseID);
 		adminText.setString("");
+		nowAdmin = "attend view";
+		return;
+	}
+
+	if (nowAdmin == "export score") {
+		exportScoreBoard(scoreBoard,courseID);
+		nowAdmin = "scoreboard view";
+		return;
+	}
+	if (nowAdmin == "export attend") {
+		exportAttendance(attendanceList,courseID);
 		nowAdmin = "attend view";
 		return;
 	}

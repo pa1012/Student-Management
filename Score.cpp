@@ -72,6 +72,19 @@ void Score::save() {
 	fout.close();
 }
 
+void Score::save0() {
+	ofstream fout;
+	string fileName = "export/score/" + courseID + ".csv";
+	fout.open(fileName, ios::app);
+	fout << studentID << ',';
+	fout << fixed << setprecision(1) << midterm << ',';
+	fout << fixed << setprecision(1) << lab << ',';
+	fout << fixed << setprecision(1) << final << ',';
+	fout << fixed << setprecision(1) << bonus << ',';
+	fout << inClass << '\n';
+	fout.close();
+}
+
 void Score::updateScore(string what, float grade) {
 	if (grade > 10 || grade < 0) return;
 	if (what == "Midterm") {

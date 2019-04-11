@@ -73,12 +73,14 @@ vector<Course> ArrayOfCourse::returnCourses(string year, int term)
 
 void ArrayOfCourse::loadCourse(string y, int term) {
 	stringstream str;
-	str << "Data/" << y<<"_"<<term<<".csv";
+	str << "import/" << y<<"_"<<term<<".csv";
 	string fileName = str.str();
 
 	ifstream fin;
 
 	fin.open(fileName.c_str());
+
+	if (fin.fail()) return;
 	string no, id, name, clas, lecture, lectureID, year, semester, startDate, endDate, dayOfWeek, start, end, room;
 
 	while (!fin.eof())
