@@ -31,3 +31,6 @@ void saveScoreBoard(vector<ScoreBoard> scoreboard);
 void updateScore(vector<ScoreBoard> &score, string courseID, string studentID, string what, float grade);
 void removeScore(vector<ScoreBoard> &scoreBoard, Account account);
 void addToScore(vector<ScoreBoard> &scoreBoard, Account acc);
+
+void removeScore(vector<ScoreBoard> &scoreBoard, Account account, string courseID);
+void addToScore(vector<ScoreBoard> &scoreBoard,Account account, string courseID);

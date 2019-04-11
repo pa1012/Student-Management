@@ -933,7 +933,13 @@ void MenuOfAdmin::logic(string &nowAdmin,Time time, ArrayOfClass &Classes, ArrOf
 	if (nowAdmin == "+ st ID done") {
 		instruction.setString("");
 		studentID = adminEnter;
+		
 		Acc.addCourse(studentID, courseID,course);
+		Account a;
+		a = Acc.getAccount(studentID);
+		addToScore(scoreBoard, a, courseID);
+		addToAttendance(attendanceList, a, courseID);
+
 		adminText.setString("");
 		adminEnter = "";
 		studentGraphic.clear();
@@ -953,7 +959,11 @@ void MenuOfAdmin::logic(string &nowAdmin,Time time, ArrayOfClass &Classes, ArrOf
 		studentID = adminEnter;
 		adminEnter = "";
 		adminText.setString("");
+
 		Acc.removeCourseInAccount(studentID, courseID);
+		Account a = Acc.getAccount(studentID);
+		removeAttendance(attendanceList, a, courseID);
+		removeScore(scoreBoard, a, courseID);
 		studentGraphic.clear();
 		initTableCourse_Student(font, studentGraphic, courseID, Acc);
 		nowAdmin = "view student";
@@ -969,6 +979,7 @@ void MenuOfAdmin::logic(string &nowAdmin,Time time, ArrayOfClass &Classes, ArrOf
 	if (nowAdmin == "+ class done") {
 		instruction.setString("Course : " + courseID);
 		Acc.addCourseToClass(adminEnter, courseID, course);
+		//write down here
 		adminText.setString("");
 		nowAdmin = "view student";
 		studentGraphic.clear();

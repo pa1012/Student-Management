@@ -150,3 +150,18 @@ void ScoreBoard::addScore(string studentID, string inClass) {
 	sc.inputScore(studentID, 0, 0, 0, 0, inClass, courseName);
 	scoreBoard.push_back(sc);
 }
+
+void removeScore(vector<ScoreBoard> &scoreBoard, Account account, string courseID) {
+	for (int j = 0; j < scoreBoard.size(); j++)
+		if (scoreBoard[j].isMatchCourse(courseID))
+		{
+			scoreBoard[j].removeScore(account.getID());
+		}
+}
+void addToScore(vector<ScoreBoard> &scoreBoard, Account account, string courseID) {
+	for (int j = 0; j < scoreBoard.size(); j++)
+		if (scoreBoard[j].isMatchCourse(courseID))
+		{
+			scoreBoard[j].addScore(account.getID(), account.getinClass());
+		}
+}

@@ -172,6 +172,13 @@ void MenuOfLecturer::logic(Time time, Account&Acc, string & nowLecturer, ArrayOf
 	}
 	if (nowLecturer == "scorecourseID done")
 	{
+		if (!course.isExisted(LecturerEnter)) {
+			instruction.setString("Enter courseID: ");
+			LecturerEnter = "";
+			LecturerText.setString("|");
+			nowLecturer = "scorecourseID";
+			return;
+		}
 		courseID = LecturerEnter;
 		scoreGraphic.clear();
 		initTableScore(font, scoreGraphic, score, course, courseID); //
@@ -233,6 +240,15 @@ void MenuOfLecturer::logic(Time time, Account&Acc, string & nowLecturer, ArrayOf
 	}
 	if (nowLecturer == "courseID done")
 	{
+		if (!course.isExisted(LecturerEnter)) {
+			instruction.setString("Enter courseID: ");
+			courseID = "";
+			attendanceGraphic.clear();
+			LecturerEnter = "";
+			LecturerText.setString("|");
+			nowLecturer = "courseID";
+			return;
+		}
 		courseID = LecturerEnter;
 		attendanceGraphic.clear();
 		initTableAttendance(font, attendanceGraphic, attendanceList, course, courseID); //

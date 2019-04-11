@@ -159,3 +159,18 @@ void AttendanceList::addAttendance(string studentID) {
 	at.init(studentID,courseName);
 	Arr.push_back(at);
 }
+
+void removeAttendance(vector<AttendanceList> &attendanceList, Account account, string courseID) {
+	for (int j = 0; j < attendanceList.size(); j++)
+		if (attendanceList[j].isMatchCourse(courseID))
+		{
+			attendanceList[j].removeAttendance(account.getID());
+		}
+}
+void addToAttendance(vector<AttendanceList> &attendanceList, Account account, string courseID) {
+	for (int j = 0; j < attendanceList.size(); j++)
+		if (attendanceList[j].isMatchCourse(courseID))
+		{
+			attendanceList[j].addAttendance(account.getID());
+		}
+}

@@ -30,3 +30,6 @@ void initTableAttendance(vector<AttendanceList> &attendanceList,Time  time);
 void saveAttendance(vector<AttendanceList> &attendanceList);
 void removeAttendance(vector<AttendanceList> & attendanceList, Account account);
 void addToAttendance(vector <AttendanceList> & attendanceList, Account account);
+
+void removeAttendance(vector<AttendanceList> &attendanceList, Account account, string courseID);
+void addToAttendance(vector<AttendanceList> &attendanceList, Account account, string courseID);
